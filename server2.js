@@ -54,7 +54,7 @@ app.post("/register", function(req, res){
                     res.json({success: false, message: "server error"})
                 }
                 // we check to see if the username is already taken
-                if (rows.length >0){
+                if (rows.length > 0){
                     res.json({success: false, message: "username taken"})
                 }
                 // if it isn't, we insert the user into database
