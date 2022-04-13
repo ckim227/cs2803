@@ -1,6 +1,7 @@
 const express = require("express");
 const res = require("express/lib/response");
 const { json } = require("express/lib/response");
+const path = require('path');
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
@@ -11,7 +12,7 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "R8qfgauzu",
+    password: "Ca.th2lo",
     database: "CS2803"
 })
 
@@ -25,18 +26,18 @@ conn.connect(function(err){
 
 // app will be our express instance
 const app = express();
-username="ronnie"
+username="ckim"
 password="12345"
 
 // Serve static files from the public dir
 // if you do not include this, then navigation to the localhost will not show anything
-app.use(express.static("public")); // will use the index.html file
+app.use(express.static(path.join(__dirname, 'public'))); // will use the index.html file
 
 // the following is a route
 // serve home page
 // note that our callback function is anonymous here
 app.get("/registration", function(req, res){
-    res.sendFile(__dirname + "/public/" + "registration.html");
+    res.sendFile(__dirname + "/public/html/" + "registration.html");
 })
 
 
@@ -95,7 +96,7 @@ app.post("/attempt_login", function(req, res){
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
     if(authenticated){
-        res.sendFile(__dirname + "/public/" + "main.html");
+        res.sendFile(__dirname + "/public/html/" + "main.html");
     }else{
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }
