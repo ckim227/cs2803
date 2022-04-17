@@ -111,6 +111,14 @@ app.get("/alt", function(req,res) {
     res.sendFile(__dirname + "/public/html/" + "indexCopy.html")
 })
 
+app.get("/randomRecipe", function(req,res) {
+    if(authenticated){
+        res.sendFile(__dirname + "/public/html/" + "randomRecipe.html")
+    }else{
+        res.send("<p>not logged in <p><a href='/'>login page</a>")
+    }
+})
+
 // Start the web server
 // 3000 is the port #
 // followed by a callback function
