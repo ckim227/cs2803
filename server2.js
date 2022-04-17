@@ -5,6 +5,7 @@ const path = require('path');
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
+let username = ""; //used to tell which user's data to access
 
 // let's make a connection to our mysql server
 const mysql = require("mysql2")
@@ -77,14 +78,17 @@ app.post("/register", function(req, res){
 // post to route "attempt login"
 app.post("/attempt_login", function(req, res){
     // we check for the username and password to match.
-    conn.query("select password from registeredusers where username = ?", [req.body.username], function (err, rows){
-        if(err){
-            res.json({success: false, message: "user doesn't exists"});
+    conn.query("select username, password from registeredusers where username = ?", [req.body.username], function (err, rows){
+        console.log(rows);
+        if(err || rows.length === 0){
+            authenticated = false;
+            res.json({success: false, message: "user doesn't exist"});
         }else{
             storedPassword = rows[0].password // rows is an array of objects e.g.: [ { password: '12345' } ]
             // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
             if (bcrypt.compareSync(req.body.password, storedPassword)){
                 authenticated = true;
+                username = rows[0].username; //username of signed in user is saved
                 res.json({success: true, message: "logged in"})
             }else{
                 res.json({success: false, message:"password is incorrect"})
@@ -101,6 +105,10 @@ app.get("/main", function(req, res){
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }
     
+})
+
+app.get("/alt", function(req,res) {
+    res.sendFile(__dirname + "/public/html/" + "indexCopy.html")
 })
 
 // Start the web server
