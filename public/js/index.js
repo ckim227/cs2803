@@ -28,12 +28,15 @@ function responseHandler(){
     message.style.display = "block"
     if (this.response.success){    
         message.innerText = this.response.message
+        message.style.color = "green";
+        message.classList.remove("invisible");
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
         loginli.classList.add("d-none");
     }else{
         console.log(this.response.success)
+        message.classList.remove("invisible");
         message.innerText = this.response.message
     }
 }

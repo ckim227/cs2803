@@ -94,6 +94,7 @@ app.post("/attempt_login", function(req, res){
             if (bcrypt.compareSync(req.body.password, storedPassword)){
                 authenticated = true;
                 username = rows[0].username; //username of signed in user is saved
+                console.log("hi " + username);
                 res.json({success: true, message: "logged in"})
             }else{
                 res.json({success: false, message:"password is incorrect"})
