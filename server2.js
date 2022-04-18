@@ -5,6 +5,7 @@ const path = require('path');
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
+//CHANGE BACK TO FALSE ^^^
 let username = ""; //used to tell which user's data to access
 
 // let's make a connection to our mysql server
@@ -118,7 +119,6 @@ app.get("/randomRecipe", function(req,res) {
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }
 })
-
 // Start the web server
 // 3000 is the port #
 // followed by a callback function

@@ -4,7 +4,7 @@ let password = document.getElementById("password")
 
 function login(event){
     event.preventDefault()
-    let xhr = new XMLHttpRequest
+    let xhr = new XMLHttpRequest()
     xhr.addEventListener("load", responseHandler)
     query=`username=${username.value}&password=${password.value}`
     // when submitting a GET request, the query string is appended to URL
