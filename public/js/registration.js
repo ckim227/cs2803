@@ -5,7 +5,6 @@ let confirmPassword = document.getElementById("confirm_password")
 let main = document.getElementById("mainli");
 let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
-let registration = document.getElementById("registrationli");
 
 function register(event){
     event.preventDefault();
@@ -38,7 +37,6 @@ function responseHandler(){
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
-        registration.classList.add("d-none");
     }else{
         console.log(this.response.success)
         message.innerText = this.response.message

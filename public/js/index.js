@@ -1,6 +1,10 @@
 let loginButton = document.getElementById("login")
 let username = document.getElementById("username")
 let password = document.getElementById("password")
+let main = document.getElementById("mainli");
+let logout = document.getElementById("logoutli");
+let random = document.getElementById("randomli");
+let loginli = document.getElementById("loginli");
 
 function login(event){
     event.preventDefault()
@@ -24,6 +28,10 @@ function responseHandler(){
     message.style.display = "block"
     if (this.response.success){    
         message.innerText = this.response.message
+        main.classList.remove("d-none");
+        random.classList.remove("d-none");
+        logout.classList.remove("d-none");
+        loginli.classList.add("d-none");
     }else{
         console.log(this.response.success)
         message.innerText = this.response.message
