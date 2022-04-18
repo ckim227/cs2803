@@ -1,10 +1,14 @@
 let registerButton = document.getElementById("register")
 let username = document.getElementById("username")
 let password = document.getElementById("password")
-let confirmPassword = document.getElementById("confirm_password");
+let confirmPassword = document.getElementById("confirm_password")
+let main = document.getElementById("mainli");
+let logout = document.getElementById("logoutli");
+let random = document.getElementById("randomli");
+let registration = document.getElementById("registrationli");
 
 function register(event){
-    event.preventDefault()
+    event.preventDefault();
     if (password.value === confirmPassword.value){
         let xhr = new XMLHttpRequest()
         xhr.addEventListener("load", responseHandler)
@@ -23,8 +27,7 @@ function register(event){
     else{
         message.style.display = "block"
         message.innerText = "passwords don't match"
-    }
-    
+    } 
 }
 
 function responseHandler(){
@@ -32,6 +35,10 @@ function responseHandler(){
     message.style.display = "block"
     if (this.response.success){    
         message.innerText = this.response.message
+        main.classList.remove("d-none");
+        random.classList.remove("d-none");
+        logout.classList.remove("d-none");
+        registration.classList.add("d-none");
     }else{
         console.log(this.response.success)
         message.innerText = this.response.message
