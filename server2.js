@@ -4,7 +4,7 @@ const { json } = require("express/lib/response");
 const path = require('path');
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
-let authenticated = true; // used to see if user is logged in
+let authenticated = false; // used to see if user is logged in
 //CHANGE BACK TO FALSE ^^^
 let username = ""; //used to tell which user's data to access
 
@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    // password: "monaco14",
     database: "CS2803"
 })
 
