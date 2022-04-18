@@ -40,6 +40,9 @@ app.use(express.static(path.join(__dirname, 'public'))); // will use the index.h
 // serve home page
 // note that our callback function is anonymous here
 app.get("/registration", function(req, res){
+    if (authenticated) {
+        authenticated = false;
+    }
     res.sendFile(__dirname + "/public/html/" + "registration.html");
 })
 
@@ -116,6 +119,7 @@ app.get("/randomRecipe", function(req,res) {
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }
 })
+
 // Start the web server
 // 3000 is the port #
 // followed by a callback function
