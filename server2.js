@@ -49,31 +49,31 @@ app.get("/registration", function(req, res){
 app.use(express.urlencoded({extended:false}));
 
 app.post("/register", function(req, res){
-            // we check to see if username is available
-            usernameQuery = "Select username from registeredUsers where username  = ?"
-            conn.query(usernameQuery, [req.body.username], function(err, rows){ 
-                if(err){
+    // we check to see if username is available
+    usernameQuery = "Select username from registeredUsers where username  = ?"
+    conn.query(usernameQuery, [req.body.username], function(err, rows){ 
+        if(err){
+            res.json({success: false, message: "server error"})
+        }
+        // we check to see if the username is already taken
+        if (rows.length > 0){
+            res.json({success: false, message: "username taken"})
+        }
+        // if it isn't, we insert the user into database
+        else{
+            // we create a password hash before storing the password
+            passwordHash = bcrypt.hashSync(req.body.password, costFactor);
+            insertUser = "insert into registeredUsers values(?, ?)"
+            conn.query(insertUser, [req.body.username, passwordHash], function(err, rows){
+                if (err){
                     res.json({success: false, message: "server error"})
                 }
-                // we check to see if the username is already taken
-                if (rows.length > 0){
-                    res.json({success: false, message: "username taken"})
-                }
-                // if it isn't, we insert the user into database
                 else{
-                    // we create a password hash before storing the password
-                    passwordHash = bcrypt.hashSync(req.body.password, costFactor);
-                    insertUser = "insert into registeredUsers values(?, ?)"
-                    conn.query(insertUser, [req.body.username, passwordHash], function(err, rows){
-                        if (err){
-                            res.json({success: false, message: "server error"})
-                        }
-                        else{
-                            res.json({success: true, message: "user registered"})
-                        }
-                    })
+                    res.json({success: true, message: "user registered"})
                 }
-            });
+            })
+        }
+    });
 })
 
 // post to route "attempt login"
@@ -106,10 +106,6 @@ app.get("/main", function(req, res){
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }
     
-})
-
-app.get("/alt", function(req,res) {
-    res.sendFile(__dirname + "/public/html/" + "indexCopy.html")
 })
 
 app.get("/randomRecipe", function(req,res) {
