@@ -26,7 +26,7 @@ function responseHandler(){
         recipeName.innerText = this.response.meals[0].strMeal
         let ingredientsList = ""
         for (let i = 9; i < 29; i++) {
-            if (mealArr[i] != "") {
+            if (mealArr[i] != "" && mealArr[i] != null && mealArr[i] != undefined) {
                 ingredientsList += mealArr[i] + ": " + mealArr[i+20] + "\n" 
             }
         }
