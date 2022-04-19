@@ -61,7 +61,7 @@ app.post("/register", function(req, res){
         }
         // we check to see if the username is already taken
         if (rows.length > 0){
-            res.json({success: false, message: "Username taken! Please try another username"})
+            res.json({success: false, message: "Username already taken! Please try another username"})
         }
         // if it isn't, we insert the user into database
         else{
@@ -87,7 +87,7 @@ app.post("/attempt_login", function(req, res){
         console.log(rows);
         if(err || rows.length === 0){
             authenticated = false;
-            res.json({success: false, message: "User does not exist"});
+            res.json({success: false, message: "This username does not exist!"});
         }else{
             storedPassword = rows[0].password // rows is an array of objects e.g.: [ { password: '12345' } ]
             // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database

@@ -33,16 +33,14 @@ function register(event){
 
 function responseHandler(){
     let message = document.getElementById("message")
-    message.style.display = "block"
+    messageCont.classList.remove("d-none");
     if (this.response.success){    
-        message.innerText = this.response.message
+        message.innerText = this.response.message;
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
         regCont.classList.add("d-none");
-        messageCont.classList.remove("d-none");
     }else{
-        console.log(this.response.success)
         message.innerText = this.response.message
     }
 }

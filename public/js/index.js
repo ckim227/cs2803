@@ -27,11 +27,10 @@ function login(event){
 
 function responseHandler(){
     let message = document.getElementById("message")
-    message.style.display = "block"
+    messageCont.classList.remove("d-none");
     if (this.response.success){    
         message.innerText = this.response.message
         message.style.color = "green";
-        message.classList.remove("invisible");
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
@@ -39,8 +38,6 @@ function responseHandler(){
         logCont.classList.add("d-none");
         messageCont.classList.remove("d-none");
     }else{
-        console.log(this.response.success)
-        message.classList.remove("invisible");
         message.innerText = this.response.message
     }
 }
