@@ -1,3 +1,4 @@
+
 let generateButton = document.getElementById("random")
 let addRecipeButton = document.getElementById("addRandom")
 
