@@ -75,6 +75,8 @@ app.post("/register", function(req, res){
                 else{
                     authenticated = true;
                     res.json({success: true, message: "Welcome " + req.body.username + "!"})
+                    username = req.body.username;
+                    authenticated = true;
                 }
             })
         }
