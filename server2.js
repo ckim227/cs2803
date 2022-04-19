@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    // password: "monaco14",
+    // password: "Ca.th2lo",
+    password: "monaco14",
     database: "CS2803"
 })
 
@@ -73,9 +73,26 @@ app.post("/register", function(req, res){
                     res.json({success: false, message: "Server error"})
                 }
                 else{
+                    authenticated = true;
                     res.json({success: true, message: "Welcome " + req.body.username + "!"})
                 }
             })
+        }
+    });
+})
+
+app.post("/username", function(req, res){
+    // we check to see if username is available
+    usernameQuery = "Select username from registeredUsers where username = ?"
+    conn.query(usernameQuery, [req.body.username], function(err, rows){ 
+        if(err){
+            res.json({success: false, message: "Server Error"})
+        }
+        else if (rows.length > 0){
+            res.json({success: false, message: "Username already taken! Please try another username"})
+        }
+        else {
+            res.json({success: true, message: "Valid username!"})
         }
     });
 })
@@ -116,7 +133,7 @@ app.get("/randomRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "randomRecipe.html")
     }else{
-        res.send("<p>not logged in <p><a href='/'>login page</a>")
+        res.send("<p>Not logged in <p><a href='/'>login page</a>")
     }
 })
 

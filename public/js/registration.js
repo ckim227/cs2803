@@ -5,6 +5,7 @@ let confirmPassword = document.getElementById("confirm_password")
 let main = document.getElementById("mainli");
 let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
+let registration = document.getElementById("registrationli");
 let regCont = document.getElementById("regCont");
 let messageCont = document.getElementById("messageCont");
 
@@ -36,13 +37,52 @@ function responseHandler(){
     messageCont.classList.remove("d-none");
     if (this.response.success){    
         message.innerText = this.response.message;
+        message.style.color = "green"
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
+        registrationli.classList.add("d-none");
         regCont.classList.add("d-none");
     }else{
         message.innerText = this.response.message
     }
 }
-console.log(username)
+function usernameInput(event){
+    event.preventDefault();
+    let xhr = new XMLHttpRequest()
+    xhr.addEventListener("load", uiHandler)
+    query=`username=${username.value}`
+    url = `/username`
+    xhr.responseType = "json";   
+    xhr.open("POST", url)
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhr.send(query)
+}
+function uiHandler(){
+    let invalidUsername = document.getElementById("invalidUsername");
+    if (this.response.success) {
+        console.log("poop");
+        let validUsername = document.getElementById("validUsername");
+        validUsername.classList.remove("d-none");
+        invalidUsername.classList.add("d-none");
+    } else {
+        invalidUsername.innerText = this.response.message;
+        invalidUsername.classList.remove("d-none");
+        validUsername.classList.add("d-none");
+    }
+}
+function confirmInput(event){
+    let validPassword = document.getElementById("validPassword");
+    let invalidPassword = document.getElementById("invalidPassword");
+    if (confirmPassword.value === password.value) {
+        validPassword.classList.remove("d-none");
+        invalidPassword.classList.add("d-none");
+    } else {
+        validPassword.classList.add("d-none");
+        invalidPassword.classList.remove("d-none");
+    }
+}
+console.log(username.innerText);
 registerButton.addEventListener("click", register)
+username.addEventListener("input", usernameInput)
+confirmPassword.addEventListener("input", confirmInput)
