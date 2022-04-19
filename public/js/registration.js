@@ -42,7 +42,6 @@ function responseHandler(){
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
-        registrationli.classList.add("d-none");
         regCont.classList.add("d-none");
     }else{
         message.innerText = this.response.message
