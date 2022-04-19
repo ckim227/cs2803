@@ -7,6 +7,7 @@ let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
 let regCont = document.getElementById("regCont");
 let messageCont = document.getElementById("messageCont");
+let message = document.getElementById("message");
 
 function register(event){
     event.preventDefault();
@@ -26,16 +27,17 @@ function register(event){
         xhr.send(query)
     }
     else{
+        messageCont.classList.remove("d-none");
         message.style.display = "block"
         message.innerText = "Passwords don't match! Please try again"
     } 
 }
 
 function responseHandler(){
-    let message = document.getElementById("message")
     messageCont.classList.remove("d-none");
     if (this.response.success){    
         message.innerText = this.response.message;
+        message.style.color = "green";
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
