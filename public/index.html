@@ -38,25 +38,24 @@
             </ul>
           </div>
         </nav>
-        <div class="container">
+        <div class="container" id="logCont">
           <form method="POST" action="/attempt_login">
               <div class="form-group">
                   <label for="username" class="form-label">Username:</label>
-                  <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                  <input type="text" class="form-control" name="username" id="username" placeholder="Username">
               </div>
               <div class="form-group">
                   <label for="password" class="form-label">Password:</label>
-                  <input type="password" class="form-control" name="password", id="password" placeholder="password">
+                  <input type="password" class="form-control" name="password", id="password" placeholder="Password">
               </div>
               <button type="submit" value="login" id="login" class="btn btn-primary">Submit</button> 
           </form>
-          <p class="invisible" id="message" style="color:red"></p>
           <div>
-              <p>Not a user? <a href="registration">Register here</a></p>
-          </div>
-          <div>
-              <!--<p><a href="main">Main Page</a></p>-->
-          </div>
+            <p>Not a user? <a href="registration">Register here</a></p>
+          </div>     
+        </div>
+        <div class="container d-none" id="messageCont">
+          <p id="message" style="color:red"></p>
         </div>
         
     </body>

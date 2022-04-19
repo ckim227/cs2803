@@ -37,27 +37,29 @@
             </ul>
           </div>
         </nav>
-        <div class="container"> 
+        <div class="container" id="regCont"> 
           <p>Please fill out the information below to register:</p>
           <form method="POST" action="/register">
-            <div >
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username">
+            <div class="form-group">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Username" class="form-control">
             </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" placeholder="password">
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Password" class="form-control">
             </div>
-            <div>
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="confirm password">
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Confirm Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="form-control">
             </div>
             <div>
               <input type="submit" value="Register" id="register">  
             </div>
           </form>
-          <p hidden id="message"></p>
           <p><a href="/">Return to login page.</a></p>
+        </div>
+        <div class="container d-none" id="messageCont">
+          <p id="message" style="color:red"></p>
         </div>
     </body>
 </html>

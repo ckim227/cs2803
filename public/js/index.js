@@ -5,6 +5,8 @@ let main = document.getElementById("mainli");
 let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
 let loginli = document.getElementById("loginli");
+let logCont = document.getElementById("logCont");
+let messageCont = document.getElementById("messageCont");
 
 function login(event){
     event.preventDefault()
@@ -34,6 +36,8 @@ function responseHandler(){
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
         loginli.classList.add("d-none");
+        logCont.classList.add("d-none");
+        messageCont.classList.remove("d-none");
     }else{
         console.log(this.response.success)
         message.classList.remove("invisible");

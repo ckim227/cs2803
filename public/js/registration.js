@@ -5,6 +5,8 @@ let confirmPassword = document.getElementById("confirm_password")
 let main = document.getElementById("mainli");
 let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
+let regCont = document.getElementById("regCont");
+let messageCont = document.getElementById("messageCont");
 
 function register(event){
     event.preventDefault();
@@ -25,7 +27,7 @@ function register(event){
     }
     else{
         message.style.display = "block"
-        message.innerText = "passwords don't match"
+        message.innerText = "Passwords don't match! Please try again"
     } 
 }
 
@@ -37,6 +39,8 @@ function responseHandler(){
         main.classList.remove("d-none");
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
+        regCont.classList.add("d-none");
+        messageCont.classList.remove("d-none");
     }else{
         console.log(this.response.success)
         message.innerText = this.response.message

@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    // password: "monaco14",
+    // password: "Ca.th2lo",
+    password: "monaco14",
     database: "CS2803"
 })
 
@@ -54,14 +54,14 @@ app.use(express.urlencoded({extended:false}));
 
 app.post("/register", function(req, res){
     // we check to see if username is available
-    usernameQuery = "Select username from registeredUsers where username  = ?"
+    usernameQuery = "Select username from registeredUsers where username = ?"
     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
         if(err){
-            res.json({success: false, message: "server error"})
+            res.json({success: false, message: "Server Error"})
         }
         // we check to see if the username is already taken
         if (rows.length > 0){
-            res.json({success: false, message: "username taken"})
+            res.json({success: false, message: "Username taken! Please try another username"})
         }
         // if it isn't, we insert the user into database
         else{
@@ -70,10 +70,10 @@ app.post("/register", function(req, res){
             insertUser = "insert into registeredUsers values(?, ?)"
             conn.query(insertUser, [req.body.username, passwordHash], function(err, rows){
                 if (err){
-                    res.json({success: false, message: "server error"})
+                    res.json({success: false, message: "Server error"})
                 }
                 else{
-                    res.json({success: true, message: "user registered"})
+                    res.json({success: true, message: "Welcome " + req.body.username + "!"})
                 }
             })
         }
@@ -87,17 +87,16 @@ app.post("/attempt_login", function(req, res){
         console.log(rows);
         if(err || rows.length === 0){
             authenticated = false;
-            res.json({success: false, message: "user doesn't exist"});
+            res.json({success: false, message: "User does not exist"});
         }else{
             storedPassword = rows[0].password // rows is an array of objects e.g.: [ { password: '12345' } ]
             // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
             if (bcrypt.compareSync(req.body.password, storedPassword)){
                 authenticated = true;
                 username = rows[0].username; //username of signed in user is saved
-                console.log("hi " + username);
-                res.json({success: true, message: "logged in"})
+                res.json({success: true, message: "Welcome back " + username + "!"})
             }else{
-                res.json({success: false, message:"password is incorrect"})
+                res.json({success: false, message:"Your password is incorrect"})
             }
         }
     })  
