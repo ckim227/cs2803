@@ -9,6 +9,7 @@ let registration = document.getElementById("registrationli");
 let regCont = document.getElementById("regCont");
 let messageCont = document.getElementById("messageCont");
 let message = document.getElementById("message");
+let upload = document.getElementById("uploadli");
 
 function register(event){
     event.preventDefault();
@@ -43,6 +44,7 @@ function responseHandler(){
         random.classList.remove("d-none");
         logout.classList.remove("d-none");
         regCont.classList.add("d-none");
+        upload.classList.remove("d-none");
     }else{
         message.innerText = this.response.message
     }

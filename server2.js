@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    //password: "monaco14",
+    // password: "Ca.th2lo",
+    password: "monaco14",
     database: "CS2803"
 })
 
@@ -149,6 +149,14 @@ app.get("/main", function(req, res){
 app.get("/randomRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "randomRecipe.html")
+    }else{
+        res.send("<p>Not logged in <p><a href='/'>login page</a>")
+    }
+})
+
+app.get("/uploadRecipe", function(req,res) {
+    if(authenticated){
+        res.sendFile(__dirname + "/public/html/" + "uploadRecipe.html")
     }else{
         res.send("<p>Not logged in <p><a href='/'>login page</a>")
     }

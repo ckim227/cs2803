@@ -5,8 +5,10 @@ let main = document.getElementById("mainli");
 let logout = document.getElementById("logoutli");
 let random = document.getElementById("randomli");
 let loginli = document.getElementById("loginli");
+let upload = document.getElementById("uploadli");
 let logCont = document.getElementById("logCont");
 let messageCont = document.getElementById("messageCont");
+
 
 function login(event){
     event.preventDefault()
@@ -37,6 +39,7 @@ function responseHandler(){
         loginli.classList.add("d-none");
         logCont.classList.add("d-none");
         messageCont.classList.remove("d-none");
+        upload.classList.remove("d-none");
     }else{
         message.innerText = this.response.message
     }
