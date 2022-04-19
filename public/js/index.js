@@ -41,5 +41,29 @@ function responseHandler(){
         message.innerText = this.response.message
     }
 }
-
-loginButton.addEventListener("click", login)
+function usernameInput(event){
+    event.preventDefault();
+    let xhr = new XMLHttpRequest()
+    xhr.addEventListener("load", uiHandler)
+    query=`username=${username.value}`
+    url = `/username`
+    xhr.responseType = "json";   
+    xhr.open("POST", url)
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhr.send(query)
+}
+function uiHandler(){
+    let invalidUsername = document.getElementById("invalidUsername");
+    if (this.response.success) {
+        let validUsername = document.getElementById("validUsername");
+        validUsername.innerText = this.response.message;
+        validUsername.classList.remove("d-none");
+        invalidUsername.classList.add("d-none");
+    } else {
+        invalidUsername.innerText = this.response.message;
+        invalidUsername.classList.remove("d-none");
+        validUsername.classList.add("d-none");
+    }
+}
+loginButton.addEventListener("click", login);
+username.addEventListener("input", usernameInput);

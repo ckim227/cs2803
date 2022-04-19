@@ -81,7 +81,7 @@ app.post("/register", function(req, res){
     });
 })
 
-app.post("/username", function(req, res){
+app.post("/registerusername", function(req, res){
     // we check to see if username is available
     usernameQuery = "Select username from registeredUsers where username = ?"
     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
@@ -93,6 +93,21 @@ app.post("/username", function(req, res){
         }
         else {
             res.json({success: true, message: "Valid username!"})
+        }
+    });
+})
+app.post("/username", function(req, res){
+    // we check to see if username is available
+    usernameQuery = "Select username from registeredUsers where username = ?"
+    conn.query(usernameQuery, [req.body.username], function(err, rows){ 
+        if(err){
+            res.json({success: false, message: "Server Error"})
+        }
+        else if (rows.length > 0){
+            res.json({success: true, message: "Username exists!"})
+        }
+        else {
+            res.json({success: false, message: "Username does not exist!"})
         }
     });
 })

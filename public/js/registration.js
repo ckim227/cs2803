@@ -52,7 +52,7 @@ function usernameInput(event){
     let xhr = new XMLHttpRequest()
     xhr.addEventListener("load", uiHandler)
     query=`username=${username.value}`
-    url = `/username`
+    url = `/registerusername`
     xhr.responseType = "json";   
     xhr.open("POST", url)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -61,7 +61,6 @@ function usernameInput(event){
 function uiHandler(){
     let invalidUsername = document.getElementById("invalidUsername");
     if (this.response.success) {
-        console.log("poop");
         let validUsername = document.getElementById("validUsername");
         validUsername.classList.remove("d-none");
         invalidUsername.classList.add("d-none");
