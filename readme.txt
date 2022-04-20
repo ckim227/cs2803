@@ -11,19 +11,19 @@ create table registeredUsers(
     username varchar(60) primary key,
     password varchar(60) not null
 );
-drop table if exists savedRecipies;
-create table savedRecipies(
+drop table if exists savedRecipes;
+create table savedRecipes(
     user varchar(60),
     recipeName varchar (100),
     recipeIngredients varchar (5000),
     recipeInstructions varchar (5000),
     accessDate date,
     comment varchar(500),
-    primary key (user),
+    primary key (user, recipeName),
 	foreign key (user) references registeredusers(username)
 );
 
-drop table if exists linkedRecipies;
+drop table if exists linkedRecipes;
 create table linkedRecipes(
     user varchar(60),
     recipeName varchar(100),

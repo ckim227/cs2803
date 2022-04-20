@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+     password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -118,7 +118,6 @@ app.post("/username", function(req, res){
 app.post("/attempt_login", function(req, res){
     // we check for the username and password to match.
     conn.query("select username, password from registeredusers where username = ?", [req.body.username], function (err, rows){
-        console.log(rows);
         if(err || rows.length === 0){
             authenticated = false;
             res.json({success: false, message: "This username does not exist!"});
@@ -136,8 +135,36 @@ app.post("/attempt_login", function(req, res){
     })  
 })
 
-app.post("/uploadRecipe", function(req,res){
-    conn.query("select username, link from uploadedrecipes where username = ? and link = ?", [username, req.body.link], function(err, rows){
+app.post("/saveRandom", function(req,res) {
+    //not sure if req.body.recipeName is correct way to get random recipe's name
+    conn.query("select user, recipeName from savedRecipes where user = ? and recipeName = ?", [username, req.body.recipeName], function(err,rows){
+        if(err){
+            res.json({success: false, message: "Server Error"})
+            console.log("select err:" + err);
+        }
+        else if (rows.length > 0){
+            res.json({success: false, message: "This recipe has already been saved!"})
+        }
+        else {
+            //savedRecipes takes in user, recipeName, recipeIngredients, recipeInstructions, accessDate, comment 
+            insertUser = "insert into savedRecipes values(?, ?, ?, ?, null, null)"
+            //NOT SURE IF BELOW CODE IS VALID (specifically the req.body stuff)
+            //currently date and comment set to null
+            conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions], function(err, rows){ 
+                if (err){
+                    res.json({success: false, message: "Server error"})
+                    console.log("insert err:" + err);
+                }
+                else{
+                    res.json({success: true, message: "Recipe successfully saved!"})
+                }
+            })
+        }
+    })
+})
+
+app.post("/saveLinkedRecipe", function(req,res){
+    conn.query("select user, link from linkedrecipes where user = ? and link = ?", [username, req.body.link], function(err, rows){
         if(err){
             res.json({success: false, message: "Server Error"})
         }
@@ -145,8 +172,9 @@ app.post("/uploadRecipe", function(req,res){
             res.json({success: false, message: "This link has already been uploaded!"})
         }
         else {
-            insertUser = "insert into uploadedrecipes values(?, ?)"
-            conn.query(insertUser, [username, req.body.link], function(err, rows){
+            //linked recipes take user, recipe name, link, date, and a comment, for now date and comment = null
+            insertUser = "insert into linkedrecipes values(?, ?, ?, null, null)"
+            conn.query(insertUser, [username, req.body.recipeName, req.body.link], function(err, rows){ //req.body.recipeName does not exist yet
                 if (err){
                     res.json({success: false, message: "Server error"})
                 }
