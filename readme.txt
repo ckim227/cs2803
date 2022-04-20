@@ -18,8 +18,20 @@ create table savedRecipies(
     recipeIngredients varchar (5000),
     recipeInstructions varchar (5000),
     accessDate date,
+    comment varchar(500),
     primary key (user),
 	foreign key (user) references registeredusers(username)
+);
+
+drop table if exists linkedRecipies;
+create table linkedRecipes(
+    user varchar(60),
+    recipeName varchar(100),
+    link varchar(500),
+    accessDate date,
+    comment varchar(500),
+    primary key (user),
+    foreign key (user) references registeredusers(username)
 );
 
 Don't forget to use npm install to install all dependencies
