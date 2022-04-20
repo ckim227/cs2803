@@ -136,6 +136,28 @@ app.post("/attempt_login", function(req, res){
     })  
 })
 
+app.post("/uploadRecipe", function(req,res){
+    conn.query("select username, link from uploadedrecipes where username = ? and link = ?", [username, req.body.link], function(err, rows){
+        if(err){
+            res.json({success: false, message: "Server Error"})
+        }
+        else if (rows.length > 0){
+            res.json({success: false, message: "This link has already been uploaded!"})
+        }
+        else {
+            insertUser = "insert into uploadedrecipes values(?, ?)"
+            conn.query(insertUser, [username, req.body.link], function(err, rows){
+                if (err){
+                    res.json({success: false, message: "Server error"})
+                }
+                else{
+                    res.json({success: true, message: "Recipe successfully uploaded!"})
+                }
+            })
+        }
+    })
+}) 
+
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
     if(authenticated){

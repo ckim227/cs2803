@@ -36,17 +36,18 @@
             </div>
           </nav>
         <p>Upload recipes online!</p>
-        <div class="container"> 
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="sr-only" for="inlineFormInput">Recipe Link</label>
-                    <input type="text" class="form-control mb-2" id="inlineFormInput">
+        <form class="form-horizontal" method="post" action="/uploadRecipe">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inlineFormInput">Recipe Link:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Enter Recipe URL">
                 </div>
-                <div class="col-auto">
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary mb-2">Upload</button>
                 </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </body>
 </html>
