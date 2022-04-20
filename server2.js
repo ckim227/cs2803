@@ -146,11 +146,17 @@ app.post("/saveRandom", function(req,res) {
             res.json({success: false, message: "This recipe has already been saved!"})
         }
         else {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy+'-'+mm+'-'+dd;
             //savedRecipes takes in user, recipeName, recipeIngredients, recipeInstructions, accessDate, comment 
-            insertUser = "insert into savedRecipes values(?, ?, ?, ?, null, null)"
-            //NOT SURE IF BELOW CODE IS VALID (specifically the req.body stuff)
-            //currently date and comment set to null
-            conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions], function(err, rows){ 
+            insertUser = "insert into savedRecipes values(?, ?, ?, ?, ?, null)"
+            //currently comment set to null
+
+            conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions, today], function(err, rows){ 
                 if (err){
                     res.json({success: false, message: "Server error"})
                     console.log("insert err:" + err);
@@ -172,9 +178,15 @@ app.post("/saveLinkedRecipe", function(req,res){
             res.json({success: false, message: "This link has already been uploaded!"})
         }
         else {
-            //linked recipes take user, recipe name, link, date, and a comment, for now date and comment = null
-            insertUser = "insert into linkedrecipes values(?, ?, ?, null, null)"
-            conn.query(insertUser, [username, req.body.recipeName, req.body.link], function(err, rows){ //req.body.recipeName does not exist yet
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy+'-'+mm+'-'+dd;
+            //linked recipes take user, recipe name, link, date, and a comment, for now comment = null
+            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, null)"
+            conn.query(insertUser, [username, req.body.recipeName, req.body.link, today], function(err, rows){ //req.body.recipeName does not exist yet
                 if (err){
                     res.json({success: false, message: "Server error"})
                 }
