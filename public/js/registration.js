@@ -29,13 +29,17 @@ function register(event){
         xhr.send(query)
     }
     else{
-        messageCont.classList.remove("d-none");
-        message.style.display = "block"
-        message.innerText = "Passwords don't match! Please try again"
+        let invalidPassword = document.getElementById("invalidPassword2");
+        invalidPassword.innerHTML = "Passwords do not match!"
+        invalidPassword.classList.remove("d-none");
     } 
 }
 
 function responseHandler(){
+    let validUsername = document.getElementById("validUsername");
+    let invalidUsername = document.getElementById("invalidUsername");
+    let validPassword1 = document.getElementById("validPassword1");
+    let invalidPassword = document.getElementById("invalidPassword1");
     messageCont.classList.remove("d-none");
     if (this.response.success){    
         message.innerText = this.response.message;
@@ -45,45 +49,93 @@ function responseHandler(){
         logout.classList.remove("d-none");
         regCont.classList.add("d-none");
         upload.classList.remove("d-none");
-    }else{
-        message.innerText = this.response.message
-    }
-}
-function usernameInput(event){
-    event.preventDefault();
-    let xhr = new XMLHttpRequest()
-    xhr.addEventListener("load", uiHandler)
-    query=`username=${username.value}`
-    url = `/registerusername`
-    xhr.responseType = "json";   
-    xhr.open("POST", url)
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    xhr.send(query)
-}
-function uiHandler(){
-    let invalidUsername = document.getElementById("invalidUsername");
-    if (this.response.success) {
-        let validUsername = document.getElementById("validUsername");
-        validUsername.classList.remove("d-none");
         invalidUsername.classList.add("d-none");
-    } else {
-        invalidUsername.innerText = this.response.message;
-        invalidUsername.classList.remove("d-none");
-        validUsername.classList.add("d-none");
+        invalidPassword.classList.add("d-none");
+        validUsername.classList.remove("d-none");
+        validPassword1.classList.remove("d-none");
+    }else{
+        if (this.response.message == "Server error") {
+            message.innerText = this.response.message
+            message.style.color = "red";
+            messageCont.classList.remove("d-none");
+        }
+        else {
+            invalidUsername.classList.add("d-none");
+            invalidPassword.classList.add("d-none");
+            if (this.response.message == "Username already taken! Please try another username") {
+                invalidUsername.classList.remove("d-none");
+                invalidUsername.innerText = this.response.message;
+                validUsername.classList.add("d-none");
+            }
+            if (username.value.length == 0 && password.value.length == 0) {
+                invalidUsername.classList.remove("d-none");
+                invalidPassword.classList.remove("d-none");
+                invalidUsername.innerText = "Please enter your username!";
+                invalidPassword.innerText = "Please enter your password!";
+                validUsername.classList.add("d-none");
+                validPassword1.classList.add("d-none");
+            }
+            else if (username.value.length == 0) {
+                invalidUsername.classList.remove("d-none");
+                invalidUsername.innerText = "Please enter your username!";
+                validUsername.classList.add("d-none");
+                validPassword1.classList.remove("d-none");
+            } else if (password.value.length == 0) {
+                invalidPassword.classList.remove("d-none");
+                invalidPassword.innerText = "Please enter your password!";
+                validUsername.classList.remove("d-none");
+                validPassword1.classList.add("d-none");
+            } 
+        }
     }
+}
+// function usernameInput(event){
+//     event.preventDefault();
+//     let xhr = new XMLHttpRequest()
+//     xhr.addEventListener("load", uiHandler)
+//     query=`username=${username.value}`
+//     url = `/registerusername`
+//     xhr.responseType = "json";   
+//     xhr.open("POST", url)
+//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+//     xhr.send(query)
+// }
+// function uiHandler(){
+//     let invalidUsername = document.getElementById("invalidUsername");
+//     if (this.response.success) {
+//         let validUsername = document.getElementById("validUsername");
+//         validUsername.classList.remove("d-none");
+//         invalidUsername.classList.add("d-none");
+//     } else {
+//         invalidUsername.innerText = this.response.message;
+//         invalidUsername.classList.remove("d-none");
+//         validUsername.classList.add("d-none");
+//     }
+// }
+function usernameInput(event){
+    let invalidUsername = document.getElementById("invalidUsername");
+    invalidUsername.classList.add("d-none");
+}
+function passwordInput(event) {
+    let invalidPassword = document.getElementById("invalidPassword1");
+    invalidPassword.classList.add("d-none");
 }
 function confirmInput(event){
-    let validPassword = document.getElementById("validPassword");
-    let invalidPassword = document.getElementById("invalidPassword");
+    console.log("hello");
+    let validPassword = document.getElementById("validPassword2");
+    let invalidPassword = document.getElementById("invalidPassword2");
     if (confirmPassword.value === password.value) {
+        invalidPassword.innerHTML = "Passwords match!"
         validPassword.classList.remove("d-none");
         invalidPassword.classList.add("d-none");
     } else {
+        invalidPassword.innerHTML = "Passwords do not match!"
         validPassword.classList.add("d-none");
         invalidPassword.classList.remove("d-none");
     }
 }
 console.log(username.innerText);
 registerButton.addEventListener("click", register)
-username.addEventListener("input", usernameInput)
 confirmPassword.addEventListener("input", confirmInput)
+username.addEventListener("input", usernameInput);
+password.addEventListener("input", passwordInput);
