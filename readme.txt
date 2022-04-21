@@ -30,7 +30,7 @@ create table linkedRecipes(
     link varchar(500),
     accessDate date,
     comment varchar(500),
-    primary key (user),
+    primary key (user, recipeName),
     foreign key (user) references registeredusers(username)
 );
 

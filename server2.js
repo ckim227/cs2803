@@ -169,6 +169,18 @@ app.post("/saveRandom", function(req,res) {
     })
 })
 
+app.post("/getSaved", function(req,res) {
+    conn.query("select recipeName, recipeIngredients, recipeInstructions from savedRecipes where user = ?", [username], function(err, rows){
+        if(err) {
+            res.json({success: false, message: "Server Error"})
+        } else if (rows.length === 0) {
+            res.json({success: true, message: "Looks like your recipe book is empty. Go add some!"})
+        } else {
+            res.json({success: true, message:"loaded", rows})
+        }
+    })
+})
+
 app.post("/saveLinkedRecipe", function(req,res){
     conn.query("select user, link from linkedrecipes where user = ? and link = ?", [username, req.body.link], function(err, rows){
         if(err){

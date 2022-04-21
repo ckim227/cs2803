@@ -4,6 +4,7 @@
         <title>Main</title>
         <!--import style sheet-->
         <link href="css/index.css" rel="stylesheet">
+        <script src="js/main.js" defer></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <!-- jQuery library -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
@@ -36,7 +37,9 @@
             </div>
           </nav>
         <p>Welcome to the main page!</p>
-        <p>-Display saved recipes here-</p>
+        <container id="savedRecipes">
+          <p id="message"></p>
+        </container>
         <p><a href="randomRecipe">Random Recipe Generator</a> </p>
         <p><a href="uploadRecipe">Upload Recipe Link</a> </p>
         

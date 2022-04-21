@@ -7,6 +7,8 @@ let ingredients = document.getElementById("ingredients")
 let instructions = document.getElementById("instructions")
 
 function getRandom(){
+    let message = document.getElementById("message");
+    message.classList.add("invisible");
     let xhr = new XMLHttpRequest
     xhr.addEventListener("load", responseHandler)
     url = "https://www.themealdb.com/api/json/v1/1/random.php"
@@ -19,6 +21,7 @@ function responseHandler(){
     recipeName.style.display = "block"
     ingredients.style.display = "block"
     instructions.style.display = "block"
+
 
     mealArr = []
     for (var thing in this.response.meals[0]) {
