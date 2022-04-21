@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    //  password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -174,12 +174,26 @@ app.post("/getSaved", function(req,res) {
         if(err) {
             res.json({success: false, message: "Server Error"})
         } else if (rows.length === 0) {
-            res.json({success: true, message: "Looks like your recipe book is empty. Go add some!"})
+            res.json({success: true, message: "Looks like you have no saved recipes. Go add some!"})
         } else {
             res.json({success: true, message:"loaded", rows})
         }
     })
 })
+
+app.post("/getLinked", function(req,res) {
+    conn.query("select recipeName, link from linkedRecipes where user = ?", [username], function(err, rows){
+        if(err) {
+            res.json({success: false, message: "Server Error"})
+            console.log(err);
+        } else if (rows.length === 0) {
+            res.json({success: true, message: "Looks like you have no linked recipes. Go add some!"})
+        } else {
+            res.json({success: true, message:"loaded", rows})
+        }
+    })
+})
+
 
 app.post("/saveLinkedRecipe", function(req,res){
     conn.query("select user, link from linkedrecipes where user = ? and link = ?", [username, req.body.link], function(err, rows){
