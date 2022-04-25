@@ -41,7 +41,7 @@ function responseHandlerSaved() {
             let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
+                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
@@ -69,7 +69,7 @@ function responseHandlerLinked() {
             let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
+                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
@@ -80,7 +80,7 @@ function responseHandlerLinked() {
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                    <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
               </div>
             </div>
