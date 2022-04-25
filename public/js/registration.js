@@ -13,7 +13,7 @@ let upload = document.getElementById("uploadli");
 
 function register(event){
     event.preventDefault();
-    if (password.value === confirmPassword.value){
+    if (password.value === confirmPassword.value && password.value.length > 0 && confirmPassword.value.length > 0 && username.value.length > 0){
         let xhr = new XMLHttpRequest()
         xhr.addEventListener("load", responseHandler)
         query=`username=${username.value}&password=${password.value}`
@@ -28,11 +28,28 @@ function register(event){
         // this is to prevent the data from being easily sniffed
         xhr.send(query)
     }
-    else{
+    if (password.value.length == 0) {
+        let invalidPassword = document.getElementById("invalidPassword1");
+        invalidPassword.innerHTML = "Please enter a password!"
+        invalidPassword.classList.remove("d-none");
+    }
+    if (password.value !== confirmPassword.value) {
         let invalidPassword = document.getElementById("invalidPassword2");
         invalidPassword.innerHTML = "Passwords do not match!"
         invalidPassword.classList.remove("d-none");
     } 
+    if (username.value.length == 0) {
+        let invalidPassword = document.getElementById("invalidUsername");
+        invalidPassword.innerHTML = "Please enter a username!"
+        invalidPassword.classList.remove("d-none");
+    }
+    if (confirmPassword.value.length == 0) {
+        let validPassword = document.getElementById("validPassword2");
+        let invalidPassword = document.getElementById("invalidPassword2");
+        invalidPassword.innerHTML = "Please confirm your password!"
+        validPassword.classList.add("d-none");
+        invalidPassword.classList.remove("d-none");
+    }
 }
 
 function responseHandler(){
@@ -89,29 +106,6 @@ function responseHandler(){
         }
     }
 }
-// function usernameInput(event){
-//     event.preventDefault();
-//     let xhr = new XMLHttpRequest()
-//     xhr.addEventListener("load", uiHandler)
-//     query=`username=${username.value}`
-//     url = `/registerusername`
-//     xhr.responseType = "json";   
-//     xhr.open("POST", url)
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-//     xhr.send(query)
-// }
-// function uiHandler(){
-//     let invalidUsername = document.getElementById("invalidUsername");
-//     if (this.response.success) {
-//         let validUsername = document.getElementById("validUsername");
-//         validUsername.classList.remove("d-none");
-//         invalidUsername.classList.add("d-none");
-//     } else {
-//         invalidUsername.innerText = this.response.message;
-//         invalidUsername.classList.remove("d-none");
-//         validUsername.classList.add("d-none");
-//     }
-// }
 function usernameInput(event){
     let invalidUsername = document.getElementById("invalidUsername");
     invalidUsername.classList.add("d-none");
@@ -121,14 +115,17 @@ function passwordInput(event) {
     invalidPassword.classList.add("d-none");
 }
 function confirmInput(event){
-    console.log("hello");
     let validPassword = document.getElementById("validPassword2");
     let invalidPassword = document.getElementById("invalidPassword2");
-    if (confirmPassword.value === password.value) {
+    if (confirmPassword.value.length == 0) {
+        validPassword.classList.add("d-none");
+        invalidPassword.classList.add("d-none");
+    } else if (confirmPassword.value === password.value) {
         invalidPassword.innerHTML = "Passwords match!"
         validPassword.classList.remove("d-none");
         invalidPassword.classList.add("d-none");
     } else {
+        console.log("hereeeee")
         invalidPassword.innerHTML = "Passwords do not match!"
         validPassword.classList.add("d-none");
         invalidPassword.classList.remove("d-none");

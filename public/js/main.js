@@ -86,7 +86,6 @@ function responseHandlerLinked() {
               </div>
             </div>
           </div>`
-          console.log(recipe.link);
             accordion2.innerHTML += innerHTML;
             index++;
         });
