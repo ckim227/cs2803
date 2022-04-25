@@ -1,4 +1,13 @@
-.container {
-    margin: auto;
-    width: auto;
+#savedRecipes:hover {
+    font-weight: 900;
+}
+#linkedRecipes:hover {
+    font-weight: 900;
+}
+#accordion1 {
+    max-height: 500px;
+}
+
+#accordion2 {
+    max-height: 1000px;
 }

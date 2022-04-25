@@ -14,7 +14,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-3">
             <a class="navbar-brand" href="main">Site</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -36,17 +36,17 @@
               </ul>
             </div>
           </nav>
-        <h1 class="ml-2 mb-3">Recipe Book</h1>
+        <h1 class="ml-2 mb-3" style="margin-top: 70px">Recipe Book</h1>
         <div class="container w-100 mb-5">
-          <h2>Saved Recipes</h2>
-          <div id="accordion1">
+          <h2 id="savedRecipes">Saved Recipes</h2>
+          <div class="d-none overflow-auto" id="accordion1">
           </div>
           <div class="mx-auto" id="savedMessage"></div>
         </div>
         
         <div class="container w-100">
-          <h2>Linked Recipes</h2>
-          <div id="accordion2">
+          <h2 id="linkedRecipes">Linked Recipes</h2>
+          <div class="d-none overflow-auto" id="accordion2">
           </div>
           <div class="mx-auto" id="linkedMessage"></div>
         </div>

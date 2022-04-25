@@ -4,7 +4,8 @@ let savedMessage = document.getElementById("savedMessage");
 let linkedMessage = document.getElementById("linkedMessage");
 let accordion1 = document.getElementById("accordion1");
 let accordion2 = document.getElementById("accordion2");
-
+let srText = document.getElementById("savedRecipes");
+let lrText = document.getElementById("linkedRecipes");
 
 function showRecipes() {
     console.log("loaded")
@@ -94,5 +95,29 @@ function responseHandlerLinked() {
     }
     console.log(this.response)
 }
+let openedR1 = false;
+function showR1() {
+    if (!openedR1) {
+        accordion1.classList.remove("d-none");
+        accordion2.classList.add("d-none");
+        openedR1 = true;
+    } else {
+        accordion1.classList.add("d-none");
+        openedR1 = false;
+    }
+}
+let openedR2 = false;
+function showR2() {
+    if (!openedR2) {
+        accordion2.classList.remove("d-none");
+        accordion1.classList.add("d-none");
+        openedR2 = true;
+    } else {
+        accordion2.classList.add("d-none");
+        openedR2 = false;
+    }
+} 
 
 window.addEventListener("load", showRecipes);
+srText.addEventListener("click", showR1);
+lrText.addEventListener("click", showR2);
