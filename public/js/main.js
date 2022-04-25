@@ -38,10 +38,10 @@ function responseHandlerSaved() {
     if (this.response.message === "loaded") {
         let index = 1
         this.response.rows.forEach(recipe => {
-            let innerHTML = `<div class="card">
+            let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
+                    <button class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
@@ -66,21 +66,21 @@ function responseHandlerLinked() {
     if (this.response.message === "loaded") {
         let index = 1
         this.response.rows.forEach(recipe => {
-            let innerHTML = `<div class="card">
+            let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
+                    <button class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
             </div>
             <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion2">
               <div class="card-body">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mb-2">
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                    <button class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
               </div>
             </div>
