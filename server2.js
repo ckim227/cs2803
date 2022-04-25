@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    //password: "monaco14",
+    // password: "Ca.th2lo",
+    password: "monaco14",
     database: "CS2803"
 })
 
@@ -193,8 +193,6 @@ app.post("/getLinked", function(req,res) {
         }
     })
 })
-
-
 app.post("/saveLinkedRecipe", function(req,res){
     conn.query("select user, link from linkedrecipes where user = ? and link = ?", [username, req.body.link], function(err, rows){
         if(err){

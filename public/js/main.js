@@ -1,7 +1,10 @@
 let savedRecipes = document.getElementById("savedRecipes");
+let savedRecipesName = document.getElementById("savedRecipesName");
 let linkedRecipes = document.getElementById("linkedRecipes");
 let savedMessage = document.getElementById("savedMessage");
 let linkedMessage = document.getElementById("linkedMessage");
+let accordion1 = document.getElementById("accordion1");
+let accordion2 = document.getElementById("accordion2");
 
 
 function showRecipes() {
@@ -30,19 +33,56 @@ function showRecipes() {
     xhr2.send()
 }
 
+function showRecipesName() {
+    console.log("loaded")
+    let xhr = new XMLHttpRequest()
+    xhr.addEventListener("load", responseHandlerSavedName)
+    
+    url = "/getSavedName";
+    xhr.responseType = "json";   
+    xhr.open("POST", url)
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    console.log("sending request")
+    xhr.send()
+
+    console.log("loaded")
+    let xhr2 = new XMLHttpRequest()
+    xhr2.addEventListener("load", responseHandlerLinkedName)
+    
+    url = "/getLinkedName";
+    xhr2.responseType = "json";   
+    xhr2.open("POST", url)
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    console.log("sending request")
+    xhr2.send()
+}
+
+
 function responseHandlerSaved() {
     console.log("responseHandlerSaved")
-        if (this.response.message === "loaded") {
+    if (this.response.message === "loaded") {
+        let index = 1
         this.response.rows.forEach(recipe => {
-            let name = document.createElement('p');
-            let ingredients = document.createElement('p');
-            let instructions = document.createElement('p');
-            name.textContent = recipe.recipeName;
-            ingredients.textContent = recipe.recipeIngredients;
-            instructions.textContent = recipe.recipeInstructions;
-
-            savedRecipes.append(name, ingredients, instructions);
-        });
+            let innerHTML = `<div class="card">
+            <div class="card-header" id="${"heading" + index}">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
+                        ${recipe.recipeName}
+                    </button>
+                </h5
+            </div>
+            <div id="${"collapse" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion1">
+              <div class="card-body">
+                <p>${recipe.recipeIngredients}</p>
+                <p>${recipe.recipeInstructions}</p>
+              </div>
+            </div>
+          </div>`
+            accordion1.innerHTML += innerHTML;
+            index++;
+    });
     } else {
         message.innerText = this.response.message;
     }
@@ -50,15 +90,35 @@ function responseHandlerSaved() {
 }
 
 function responseHandlerLinked() {
-    console.log("responseHandlerLinked")
+    // console.log("responseHandlerLinked")
+    // if (this.response.message === "loaded") {
+    //     this.response.rows.forEach(recipe => {
+    //         let link = document.createElement('iframe');
+
+    //         link.src = recipe.link;
+    //         link.title = recipe.recipeName;
+
+    //         linkedRecipes.append(link);
+    //     });
     if (this.response.message === "loaded") {
+        let index = 1
         this.response.rows.forEach(recipe => {
-            let link = document.createElement('iframe');
-
-            link.src = recipe.link;
-            link.title = recipe.recipeName;
-
-            linkedRecipes.append(link);
+            let innerHTML = `<div class="card">
+            <div class="card-header" id="${"heading" + index}">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
+                        ${recipe.recipeName}
+                    </button>
+                </h5
+            </div>
+            <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion2">
+              <div class="card-body">
+                <iframe src="${recipe.link}" height="200" width="300" title="${recipe.recipeName}"></iframe>
+              </div>
+            </div>
+          </div>`
+            accordion2.innerHTML += innerHTML;
+            index++;
         });
     } else {
         linkedMessage.innerText = this.response.message;
