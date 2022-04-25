@@ -1,6 +1,5 @@
-let savedRecipes = document.getElementById("savedRecipes");
+
 let savedRecipesName = document.getElementById("savedRecipesName");
-let linkedRecipes = document.getElementById("linkedRecipes");
 let savedMessage = document.getElementById("savedMessage");
 let linkedMessage = document.getElementById("linkedMessage");
 let accordion1 = document.getElementById("accordion1");
@@ -77,8 +76,12 @@ function responseHandlerLinked() {
             </div>
             <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion2">
               <div class="card-body">
-                <iframe class="d-flex justify-content-center" src="${recipe.link}" height="500" width="650" title="${recipe.recipeName}"></iframe>
-                <button class="btn btn-primary" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                <div class="d-flex justify-content-center">
+                    <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                </div
               </div>
             </div>
           </div>`
