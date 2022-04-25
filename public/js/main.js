@@ -33,32 +33,6 @@ function showRecipes() {
     xhr2.send()
 }
 
-function showRecipesName() {
-    console.log("loaded")
-    let xhr = new XMLHttpRequest()
-    xhr.addEventListener("load", responseHandlerSavedName)
-    
-    url = "/getSavedName";
-    xhr.responseType = "json";   
-    xhr.open("POST", url)
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
-    console.log("sending request")
-    xhr.send()
-
-    console.log("loaded")
-    let xhr2 = new XMLHttpRequest()
-    xhr2.addEventListener("load", responseHandlerLinkedName)
-    
-    url = "/getLinkedName";
-    xhr2.responseType = "json";   
-    xhr2.open("POST", url)
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
-    console.log("sending request")
-    xhr2.send()
-}
-
 
 function responseHandlerSaved() {
     console.log("responseHandlerSaved")
@@ -84,22 +58,12 @@ function responseHandlerSaved() {
             index++;
     });
     } else {
-        message.innerText = this.response.message;
+        savedMessage.innerText = this.response.message;
     }
     console.log(this.response)
 }
 
 function responseHandlerLinked() {
-    // console.log("responseHandlerLinked")
-    // if (this.response.message === "loaded") {
-    //     this.response.rows.forEach(recipe => {
-    //         let link = document.createElement('iframe');
-
-    //         link.src = recipe.link;
-    //         link.title = recipe.recipeName;
-
-    //         linkedRecipes.append(link);
-    //     });
     if (this.response.message === "loaded") {
         let index = 1
         this.response.rows.forEach(recipe => {
@@ -113,10 +77,12 @@ function responseHandlerLinked() {
             </div>
             <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion2">
               <div class="card-body">
-                <iframe src="${recipe.link}" height="200" width="300" title="${recipe.recipeName}"></iframe>
+                <iframe class="d-flex justify-content-center" src="${recipe.link}" height="500" width="650" title="${recipe.recipeName}"></iframe>
+                <button class="btn btn-primary" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
               </div>
             </div>
           </div>`
+          console.log(recipe.link);
             accordion2.innerHTML += innerHTML;
             index++;
         });
