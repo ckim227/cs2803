@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -210,9 +210,9 @@ app.post("/saveLinkedRecipe", function(req,res){
             var yyyy = today.getFullYear();
 
             today = yyyy+'-'+mm+'-'+dd;
-            //linked recipes take user, recipe name, link, date, image and a comment, for now comment = null
-            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, ?, null)"
-            conn.query(insertUser, [username, req.body.recipeName, req.body.link, today, req.body.recipeImg], function(err, rows){ //req.body.recipeName does not exist yet
+            //linked recipes take user, recipe name, link, date, and a comment, for now comment = null
+            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, null)"
+            conn.query(insertUser, [username, req.body.recipeName, req.body.link, today], function(err, rows){ //req.body.recipeName does not exist yet
                 if (err){
                     res.json({success: false, message: "Server error"})
                     console.log(err);
