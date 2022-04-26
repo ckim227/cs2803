@@ -5,6 +5,7 @@ let addRecipeButton = document.getElementById("addRandom")
 let recipeName = document.getElementById("recipe-name")
 let ingredients = document.getElementById("ingredients")
 let instructions = document.getElementById("instructions")
+let pic = document.getElementById("recipe-img")
 
 function getRandom(){
     let message = document.getElementById("message");
@@ -18,6 +19,7 @@ function getRandom(){
 }
 
 function responseHandler(){
+    pic.style.display = "block"
     recipeName.style.display = "block"
     ingredients.style.display = "block"
     instructions.style.display = "block"
@@ -29,6 +31,7 @@ function responseHandler(){
     }
     if (this.status === 200) {
         recipeName.innerText = this.response.meals[0].strMeal
+        pic.src = this.response.meals[0].strMealThumb
         let ingredientsList = ""
         for (let i = 9; i < 29; i++) {
             if (mealArr[i] != "" && mealArr[i] != null && mealArr[i] != undefined) {
@@ -48,7 +51,7 @@ function responseHandler(){
 function saveRandom(){
     let xhr2 = new XMLHttpRequest()
     xhr2.addEventListener("load", saveResponseHandler)
-    query=`recipeName=${recipeName.innerText}&ingredients=${ingredients.innerText}&instructions=${instructions.innerText}`
+    query=`recipeName=${recipeName.innerText}&ingredients=${ingredients.innerText}&instructions=${instructions.innerText}&recipeImg=${pic.src}`
     // when submitting a GET request, the query string is appended to URL
     // but in a POST request, do not attach the query string to the url
     // instead pass it as a parameter in xhr.send()

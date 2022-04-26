@@ -18,6 +18,7 @@ create table savedRecipes(
     recipeIngredients varchar (5000),
     recipeInstructions varchar (5000),
     accessDate date,
+    image varchar(500),
     comment varchar(500),
     primary key (user, recipeName),
 	foreign key (user) references registeredusers(username)
