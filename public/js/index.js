@@ -29,46 +29,49 @@ function login(event){
 }
 
 function responseHandler(){
-    if (this.response.success){    
-        message.style.color = "green";
-        main.classList.remove("d-none");
-        random.classList.remove("d-none");
-        logout.classList.remove("d-none");
-        loginli.classList.add("d-none");
-        logCont.classList.add("d-none");
-        messageCont.classList.remove("d-none");
-        upload.classList.remove("d-none");
-        invalidUsername.classList.add("d-none");
-        invalidPassword.classList.add("d-none");
-        window.location.href = "../html/main.html";
-    } else {
-        if (this.response.message == "Server error") {
-            message.innerText = this.response.message
-            message.style.color = "red";
+    if (this.response) {
+        if (this.response.success){    
+            message.style.color = "green";
+            main.classList.remove("d-none");
+            random.classList.remove("d-none");
+            logout.classList.remove("d-none");
+            loginli.classList.add("d-none");
+            logCont.classList.add("d-none");
             messageCont.classList.remove("d-none");
-        }
-        else {
+            upload.classList.remove("d-none");
             invalidUsername.classList.add("d-none");
             invalidPassword.classList.add("d-none");
-            if (this.response.message == "This username does not exist!") {
-                invalidUsername.classList.remove("d-none");
-                invalidUsername.innerText = this.response.message;
-            } else if (this.response.message == "This password is incorrect!") {
-                invalidPassword.classList.remove("d-none");
-                invalidPassword.innerText = this.response.message;
+            document.cookie = "true";
+            document.location = "/main";
+        } else {
+            if (this.response.message == "Server error") {
+                message.innerText = this.response.message
+                message.style.color = "red";
+                messageCont.classList.remove("d-none");
             }
-            if (username.value.length == 0 && password.value.length == 0) {
-                invalidUsername.classList.remove("d-none");
-                invalidPassword.classList.remove("d-none");
-                invalidUsername.innerText = "Please enter your username!";
-                invalidPassword.innerText = "Please enter your password!";
-            }
-            else if (username.value.length == 0) {
-                invalidUsername.classList.remove("d-none");
-                invalidUsername.innerText = "Please enter your username!";
-            } else if (password.value.length == 0) {
-                invalidPassword.classList.remove("d-none");
-                invalidPassword.innerText = "Please enter your password!";
+            else {
+                invalidUsername.classList.add("d-none");
+                invalidPassword.classList.add("d-none");
+                if (this.response.message == "This username does not exist!") {
+                    invalidUsername.classList.remove("d-none");
+                    invalidUsername.innerText = this.response.message;
+                } else if (this.response.message == "This password is incorrect!") {
+                    invalidPassword.classList.remove("d-none");
+                    invalidPassword.innerText = this.response.message;
+                }
+                if (username.value.length == 0 && password.value.length == 0) {
+                    invalidUsername.classList.remove("d-none");
+                    invalidPassword.classList.remove("d-none");
+                    invalidUsername.innerText = "Please enter your username!";
+                    invalidPassword.innerText = "Please enter your password!";
+                }
+                else if (username.value.length == 0) {
+                    invalidUsername.classList.remove("d-none");
+                    invalidUsername.innerText = "Please enter your username!";
+                } else if (password.value.length == 0) {
+                    invalidPassword.classList.remove("d-none");
+                    invalidPassword.innerText = "Please enter your password!";
+                }
             }
         }
     }

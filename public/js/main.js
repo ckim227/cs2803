@@ -6,9 +6,7 @@ let accordion1 = document.getElementById("accordion1");
 let accordion2 = document.getElementById("accordion2");
 let srText = document.getElementById("savedRecipes");
 let lrText = document.getElementById("linkedRecipes");
-let firstLoad = true;
 function showRecipes() {
-    console.log("loaded")
     let xhr = new XMLHttpRequest()
     xhr.addEventListener("load", responseHandlerSaved)
     
@@ -17,10 +15,8 @@ function showRecipes() {
     xhr.open("POST", url)
     // notice the query string is passed as a parameter in xhr.send()
     // this is to prevent the data from being easily sniffed
-    console.log("sending request")
     xhr.send()
 
-    console.log("loaded")
     let xhr2 = new XMLHttpRequest()
     xhr2.addEventListener("load", responseHandlerLinked)
     
@@ -29,13 +25,11 @@ function showRecipes() {
     xhr2.open("POST", url)
     // notice the query string is passed as a parameter in xhr.send()
     // this is to prevent the data from being easily sniffed
-    console.log("sending request")
     xhr2.send()
 }
 
 
 function responseHandlerSaved() {
-    console.log("responseHandlerSaved")
     if (this.response.message === "loaded") {
         let index = 1
         this.response.rows.forEach(recipe => {
@@ -117,12 +111,14 @@ function showR2() {
 } 
 
 function popupHandler() {
-    if (firstLoad) {
+    console.log(document.cookie);
+    if (document.cookie === "true") {
+        document.getElementById("success").classList.remove("d-none");
         setTimeout(function() {
             document.getElementById("success").classList.add("d-none");
         }, 3000);
-    }
-    firstLoad = false;
+        document.cookie = "false"
+    } 
 }
 window.addEventListener("load", popupHandler);
 window.addEventListener("load", showRecipes);

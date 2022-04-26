@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    //password: "monaco14",
+    // password: "Ca.th2lo",
+    password: "monaco14",
     database: "CS2803"
 })
 
@@ -127,6 +127,7 @@ app.post("/attempt_login", function(req, res){
             if (bcrypt.compareSync(req.body.password, storedPassword)){
                 authenticated = true;
                 username = rows[0].username; //username of signed in user is saved
+                // res.redirect("/main");
                 res.json({success: true, message: "Welcome back " + username + "!"})
             }else{
                 res.json({success: false, message:"This password is incorrect!"})
@@ -227,6 +228,7 @@ app.post("/saveLinkedRecipe", function(req,res){
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
     if(authenticated){
+        console.log("Hiiiiiiii");
         res.sendFile(__dirname + "/public/html/" + "main.html");
     }else{
         res.send("<p>not logged in <p><a href='/'>login page</a>")
