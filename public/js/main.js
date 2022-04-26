@@ -36,7 +36,7 @@ function responseHandlerSaved() {
             let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
+                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
@@ -46,6 +46,9 @@ function responseHandlerSaved() {
                 <img src = ${recipe.image} width ="30%" class="mx-auto d-block rounded mb-3">
                 <p>${recipe.recipeIngredients}</p>
                 <p>${recipe.recipeInstructions}</p>
+                <label for="exampleFormControlTextarea1">Comments:</label>
+    <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
+    <button class="btn btn-outline-dark btn-sm">Save Comments</button>
               </div>
             </div>
           </div>`
@@ -89,7 +92,7 @@ function responseHandlerLinked() {
     }
     console.log(this.response)
 }
-let openedR1 = false;
+let openedR1 = true;
 function showR1() {
     if (!openedR1) {
         accordion1.classList.remove("d-none");
@@ -99,7 +102,7 @@ function showR1() {
         openedR1 = false;
     }
 }
-let openedR2 = false;
+let openedR2 = true;
 function showR2() {
     if (!openedR2) {
         accordion2.classList.remove("d-none");
