@@ -11,7 +11,6 @@ let messageCont = document.getElementById("messageCont");
 let invalidUsername = document.getElementById("invalidUsername");
 let invalidPassword = document.getElementById("invalidPassword")
 
-
 function login(event){
     event.preventDefault();
     let xhr = new XMLHttpRequest()
@@ -31,7 +30,6 @@ function login(event){
 
 function responseHandler(){
     if (this.response.success){    
-        message.innerText = this.response.message
         message.style.color = "green";
         main.classList.remove("d-none");
         random.classList.remove("d-none");
@@ -42,6 +40,7 @@ function responseHandler(){
         upload.classList.remove("d-none");
         invalidUsername.classList.add("d-none");
         invalidPassword.classList.add("d-none");
+        window.location.href = "../html/main.html";
     } else {
         if (this.response.message == "Server error") {
             message.innerText = this.response.message

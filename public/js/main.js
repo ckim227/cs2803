@@ -6,7 +6,7 @@ let accordion1 = document.getElementById("accordion1");
 let accordion2 = document.getElementById("accordion2");
 let srText = document.getElementById("savedRecipes");
 let lrText = document.getElementById("linkedRecipes");
-
+let firstLoad = true;
 function showRecipes() {
     console.log("loaded")
     let xhr = new XMLHttpRequest()
@@ -115,6 +115,15 @@ function showR2() {
     }
 } 
 
+function popupHandler() {
+    if (firstLoad) {
+        setTimeout(function() {
+            document.getElementById("success").classList.add("d-none");
+        }, 3000);
+    }
+    firstLoad = false;
+}
+window.addEventListener("load", popupHandler);
 window.addEventListener("load", showRecipes);
 srText.addEventListener("click", showR1);
 lrText.addEventListener("click", showR2);
