@@ -2,9 +2,6 @@ let registerButton = document.getElementById("register")
 let username = document.getElementById("username")
 let password = document.getElementById("password")
 let confirmPassword = document.getElementById("confirm_password")
-let main = document.getElementById("mainli");
-let logout = document.getElementById("logoutli");
-let random = document.getElementById("randomli");
 let registration = document.getElementById("registrationli");
 let regCont = document.getElementById("regCont");
 let messageCont = document.getElementById("messageCont");
@@ -59,17 +56,8 @@ function responseHandler(){
     let invalidPassword = document.getElementById("invalidPassword1");
     messageCont.classList.remove("d-none");
     if (this.response.success){    
-        message.innerText = this.response.message;
-        message.style.color = "green"
-        main.classList.remove("d-none");
-        random.classList.remove("d-none");
-        logout.classList.remove("d-none");
-        regCont.classList.add("d-none");
-        upload.classList.remove("d-none");
-        invalidUsername.classList.add("d-none");
-        invalidPassword.classList.add("d-none");
-        validUsername.classList.remove("d-none");
-        validPassword1.classList.remove("d-none");
+        document.cookie = "true";
+        document.location = "/main";
     }else{
         if (this.response.message == "Server error") {
             message.innerText = this.response.message

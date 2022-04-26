@@ -11,3 +11,13 @@
 #accordion2 {
     max-height: 1000px;
 }
+
+#savedMessage:hover {
+    font-weight: 300;
+    color: #0000FF;
+}
+
+#linkedMessage:hover {
+    font-weight: 300;
+    color: #0000FF;
+}

@@ -31,16 +31,6 @@ function login(event){
 function responseHandler(){
     if (this.response) {
         if (this.response.success){    
-            message.style.color = "green";
-            main.classList.remove("d-none");
-            random.classList.remove("d-none");
-            logout.classList.remove("d-none");
-            loginli.classList.add("d-none");
-            logCont.classList.add("d-none");
-            messageCont.classList.remove("d-none");
-            upload.classList.remove("d-none");
-            invalidUsername.classList.add("d-none");
-            invalidPassword.classList.add("d-none");
             document.cookie = "true";
             document.location = "/main";
         } else {

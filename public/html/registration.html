@@ -21,17 +21,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item d-none" id="mainli" style="font-size: 1.25rem">
-                <a class="nav-link" href="main">Home</a>
-              </li>
-              <li class="nav-item d-none" id="randomli" style="font-size: 1.25rem">
-                <a class="nav-link" href="randomRecipe">Random Recipe<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item d-none" id="uploadli" style="font-size: 1.25rem">
-                <a class="nav-link" href="uploadRecipe">Upload Recipe</a>
-              </li>
-              <li class="nav-item d-none" id="logoutli" style="font-size: 1.25rem">
-                <a class="nav-link" href="/">Logout</a>
+              <li class="nav-item active" id="registerLink" style="font-size: 1.25rem">
+                <a class="nav-link" href="registration">Register</a>
               </li>
             </ul>
           </div>
@@ -58,7 +49,7 @@
                 <div class="d-none" id="invalidPassword2" style="color:red"></div>
             </div>
             <div>
-              <input type="submit" value="Register" id="register">  
+              <input type="submit" value="Register" id="register" class="btn btn-outline-dark mb-2 ">  
             </div>
           </form>
           <p><a href="/">Return to login page.</a></p>
