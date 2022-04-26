@@ -68,7 +68,7 @@ function responseHandlerLinked() {
             let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
+                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
                         ${recipe.recipeName}
                     </button>
                 </h5
@@ -78,9 +78,13 @@ function responseHandlerLinked() {
                 <div class="d-flex justify-content-center mb-2">
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
+                <label for="exampleFormControlTextarea1">Comments:</label>
+    <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
+    <button class="btn btn-outline-dark btn-sm">Save Comments</button>
                 <div class="d-flex justify-content-center">
                     <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
+                
               </div>
             </div>
           </div>`
