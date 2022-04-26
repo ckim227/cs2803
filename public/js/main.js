@@ -49,6 +49,7 @@ function responseHandlerSaved() {
             </div>
             <div id="${"collapse" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion1">
               <div class="card-body">
+                <img src = ${recipe.image} width ="30%" class="mx-auto d-block rounded mb-3">
                 <p>${recipe.recipeIngredients}</p>
                 <p>${recipe.recipeInstructions}</p>
               </div>

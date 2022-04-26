@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -152,11 +152,11 @@ app.post("/saveRandom", function(req,res) {
             var yyyy = today.getFullYear();
 
             today = yyyy+'-'+mm+'-'+dd;
-            //savedRecipes takes in user, recipeName, recipeIngredients, recipeInstructions, accessDate, comment 
-            insertUser = "insert into savedRecipes values(?, ?, ?, ?, ?, null)"
+            //savedRecipes takes in user, recipeName, recipeIngredients, recipeInstructions, accessDate, image, comment 
+            insertUser = "insert into savedRecipes values(?, ?, ?, ?, ?, ?, null)"
             //currently comment set to null
 
-            conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions, today], function(err, rows){ 
+            conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions, today, req.body.recipeImg], function(err, rows){ 
                 if (err){
                     res.json({success: false, message: "Server error"})
                     console.log("insert err:" + err);
@@ -170,7 +170,7 @@ app.post("/saveRandom", function(req,res) {
 })
 
 app.post("/getSaved", function(req,res) {
-    conn.query("select recipeName, recipeIngredients, recipeInstructions from savedRecipes where user = ?", [username], function(err, rows){
+    conn.query("select recipeName, recipeIngredients, recipeInstructions, image from savedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
         if(err) {
             res.json({success: false, message: "Server Error"})
         } else if (rows.length === 0) {
@@ -182,7 +182,7 @@ app.post("/getSaved", function(req,res) {
 })
 
 app.post("/getLinked", function(req,res) {
-    conn.query("select recipeName, link from linkedRecipes where user = ?", [username], function(err, rows){
+    conn.query("select recipeName, link from linkedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
         if(err) {
             res.json({success: false, message: "Server Error"})
             console.log(err);
@@ -197,6 +197,7 @@ app.post("/saveLinkedRecipe", function(req,res){
     conn.query("select user, link from linkedrecipes where user = ? and link = ?", [username, req.body.link], function(err, rows){
         if(err){
             res.json({success: false, message: "Server Error"})
+            console.log(err);
         }
         else if (rows.length > 0){
             res.json({success: false, message: "This link has already been uploaded!"})
@@ -208,11 +209,12 @@ app.post("/saveLinkedRecipe", function(req,res){
             var yyyy = today.getFullYear();
 
             today = yyyy+'-'+mm+'-'+dd;
-            //linked recipes take user, recipe name, link, date, and a comment, for now comment = null
-            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, null)"
-            conn.query(insertUser, [username, req.body.recipeName, req.body.link, today], function(err, rows){ //req.body.recipeName does not exist yet
+            //linked recipes take user, recipe name, link, date, image and a comment, for now comment = null
+            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, ?, null)"
+            conn.query(insertUser, [username, req.body.recipeName, req.body.link, today, req.body.recipeImg], function(err, rows){ //req.body.recipeName does not exist yet
                 if (err){
                     res.json({success: false, message: "Server error"})
+                    console.log(err);
                 }
                 else{
                     res.json({success: true, message: "Recipe successfully uploaded!"})
