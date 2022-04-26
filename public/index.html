@@ -42,6 +42,7 @@
           </div>
         </nav>
         <div class="container" style="margin-top: 70px" id="logCont">
+          <p>Please put in your login info:</p>
           <form method="POST" action="/attempt_login">
               <div class="form-group">
                 <label for="username" class="form-label">Username:</label>
@@ -53,7 +54,7 @@
                 <input type="password" class="form-control" name="password", id="password" placeholder="Password" required>
                 <div class="d-none" id="invalidPassword" style="color:red"></div>
               </div>
-              <button type="submit" value="login" id="login" class="btn btn-primary">Submit</button> 
+              <button type="submit" value="login" id="login" class="btn btn-outline-dark mb-2">Submit</button> 
           </form>
           <div>
             <p>Not a user? <a href="registration">Register here</a></p>

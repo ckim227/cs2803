@@ -120,7 +120,17 @@ function popupHandler() {
         document.cookie = "false"
     } 
 }
+
+function bringToRandom() {
+    document.location = "/randomRecipe";
+}
+
+function bringToLinked() {
+    document.location = "/uploadRecipe";
+}
 window.addEventListener("load", popupHandler);
 window.addEventListener("load", showRecipes);
 srText.addEventListener("click", showR1);
 lrText.addEventListener("click", showR2);
+savedMessage.addEventListener("click", bringToRandom);
+linkedMessage.addEventListener("click", bringToLinked);

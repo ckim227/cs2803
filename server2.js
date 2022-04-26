@@ -228,7 +228,6 @@ app.post("/saveLinkedRecipe", function(req,res){
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
     if(authenticated){
-        console.log("Hiiiiiiii");
         res.sendFile(__dirname + "/public/html/" + "main.html");
     }else{
         res.send("<p>not logged in <p><a href='/'>login page</a>")
@@ -247,7 +246,7 @@ app.get("/randomRecipe", function(req,res) {
 app.get("/uploadRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "uploadRecipe.html")
-    }else{
+    }else{ƒ
         res.send("<p>Not logged in <p><a href='/'>login page</a>")
     }
 })
