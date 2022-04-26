@@ -171,7 +171,7 @@ app.post("/saveRandom", function(req,res) {
 })
 
 app.post("/getSaved", function(req,res) {
-    conn.query("select recipeName, recipeIngredients, recipeInstructions, image from savedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
+    conn.query("select recipeName, recipeIngredients, recipeInstructions, image, comment from savedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
         if(err) {
             res.json({success: false, message: "Server Error"})
         } else if (rows.length === 0) {
@@ -183,7 +183,7 @@ app.post("/getSaved", function(req,res) {
 })
 
 app.post("/getLinked", function(req,res) {
-    conn.query("select recipeName, link from linkedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
+    conn.query("select recipeName, link, comment from linkedRecipes where user = ? order by accessDate DESC", [username], function(err, rows){
         if(err) {
             res.json({success: false, message: "Server Error"})
             console.log(err);
@@ -221,6 +221,19 @@ app.post("/saveLinkedRecipe", function(req,res){
                     res.json({success: true, message: "Recipe successfully uploaded!"})
                 }
             })
+        }
+    })
+}) 
+
+app.post("/saveComment", function(req, res){
+    insertComment = "insert into savedRecipes(comment) values(?) where user = ? and recipeName = ?"
+    conn.query(insertComment, [req.body.comment, username, req.body.recipeName], function(err, rows){ 
+        if (err){
+            res.json({success: false, message: "Server error"})
+            console.log("insert err:" + err);
+        }
+        else{
+            res.json({success: true, message: "Comment successfully saved!"})
         }
     })
 }) 

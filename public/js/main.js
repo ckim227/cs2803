@@ -46,19 +46,29 @@ function responseHandlerSaved() {
                 <img src = ${recipe.image} width ="30%" class="mx-auto d-block rounded mb-3">
                 <p>${recipe.recipeIngredients}</p>
                 <p>${recipe.recipeInstructions}</p>
-                <label for="exampleFormControlTextarea1">Comments:</label>
-    <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
-    <button class="btn btn-outline-dark btn-sm">Save Comments</button>
+                <label for="${"comment"+ index}">Comments:</label>
+                <textarea class="form-control mb-3 overflow-auto" id="${"comment"+ index}" rows="3" value="${recipe.comment}"></textarea> 
+                <button class="btn btn-outline-dark btn-sm" id=${"button"+index}>Save Comments</button>
               </div>
             </div>
           </div>`
             accordion1.innerHTML += innerHTML;
+            console.log(document.getElementById("button"+index));
+            console.log(document.getElementById("comment" + index).value)
+            console.log(recipe.recipeName) 
+            let button = document.getElementById("button"+index);
+            button.addEventListener("click", saveComment)
             index++;
     });
     } else {
         savedMessage.innerText = this.response.message;
     }
     console.log(this.response)
+}
+
+function saveComment() {
+    console.log("hi");
+    // console.log("it works: " + recipeName);
 }
 
 function responseHandlerLinked() {
@@ -79,8 +89,8 @@ function responseHandlerLinked() {
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
                 <label for="exampleFormControlTextarea1">Comments:</label>
-    <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
-    <button class="btn btn-outline-dark btn-sm">Save Comments</button>
+                <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
+                <button class="btn btn-outline-dark btn-sm">Save Comments</button>
                 <div class="d-flex justify-content-center">
                     <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div

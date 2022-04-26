@@ -67,18 +67,7 @@ function responseHandler(){
     }
 }
 function usernameInput(event){
-    // event.preventDefault();
-    // let xhr = new XMLHttpRequest()
-    // xhr.addEventListener("load", uiHandler)
-    // query=`username=${username.value}`
-    // url = `/username`
-    // xhr.responseType = "json";   
-    // xhr.open("POST", url)
-    // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    // xhr.send(query)
-    // let invalidUsername = document.getElementById("invalidUsername");
-    // invalidUsername.classList.add("d-none");
-    invalidUsername.classList.add("d-none");
+    
 }
 function passwordInput(event) {
     invalidPassword.classList.add("d-none");
