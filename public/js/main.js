@@ -54,15 +54,14 @@ function responseHandlerSaved() {
                     <input type="text" class="form-control mb-3 overflow-auto" id=${"comment"+ index} rows="3" value="${recipe.comment}"></input> 
                     <button type="submit" class="btn btn-outline-dark btn-sm" id=${"button"+index}>Save Comments</button>
                 <form/>
+                <p id="${"message" + index}></p>
               </div>
             </div>
           </div>`
             accordion1.innerHTML += innerHTML;
-            console.log(document.getElementById("button"+index));
-            console.log(document.getElementById("comment" + index).value)
-            console.log(recipe.recipeName) 
             
-            document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment("${recipe.recipeName}", "${document.getElementById("comment" + index).value}");` );
+            let commentInput = document.getElementById("comment" + index)
+            document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment(event, "${recipe.recipeName}", "${index}");` );
             document.getElementById("delete"+index).setAttribute("onclick", `javascript: deleteRecipe("${recipe.recipeName}", "${index}");`);
             index++;
     });
@@ -72,13 +71,11 @@ function responseHandlerSaved() {
     console.log(this.response)
 }
 
-var saveComment = function(event, recipeName, comment){
+var saveComment = function(event, recipeName, index){
     event.preventDefault();
-    console.log(comment)
     let xhr3 = new XMLHttpRequest()
     xhr3.addEventListener("load", responseHandlerComment)
-    query=`recipeName=${recipeName}&comment=${comment.value}`
-    console.log(query)
+    query=`recipeName=${recipeName}&comment=${document.getElementById("comment" + index).value}`
     url = "/saveComment";
     xhr3.responseType = "json";   
     xhr3.open("POST", url)
@@ -89,7 +86,7 @@ var saveComment = function(event, recipeName, comment){
 }
 
 function responseHandlerComment() {
-
+    alert("Comment saved");
 }
 var deleteRecipe = function(recipeName, index) {
     let xhr4 = new XMLHttpRequest();

@@ -234,8 +234,6 @@ app.post("/saveComment", function(req, res){
         }
         else{
             res.json({success: true, message: "Comment successfully saved!"})
-            console.log(req.body.recipeName)
-            console.log(req.body.comment)
         }
     })
 }) 
