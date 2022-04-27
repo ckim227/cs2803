@@ -268,7 +268,7 @@ app.get("/main", function(req, res){
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "main.html");
     }else{
-        res.send("<p>not logged in <p><a href='/'>login page</a>")
+        res.sendFile(__dirname + "/public/")
     }
     
 })
@@ -277,7 +277,7 @@ app.get("/randomRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "randomRecipe.html")
     }else{
-        res.send("<p>Not logged in <p><a href='/'>login page</a>")
+        res.sendFile(__dirname + "/public/")
     }
 })
 
@@ -285,7 +285,7 @@ app.get("/uploadRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "uploadRecipe.html")
     }else{ƒ
-        res.send("<p>Not logged in <p><a href='/'>login page</a>")
+        res.sendFile(__dirname + "/public/")
     }
 })
 
