@@ -56,6 +56,9 @@ function responseHandlerSaved() {
                     <label for="${"comment"+ index}">Comments:</label>
                     <input type="text" class="form-control mb-3 overflow-auto" id=${"comment"+ index} rows="3" value="${recipe.comment}"></input> 
                     <button type="submit" class="btn btn-outline-dark btn-sm" id=${"button"+index}>Save Comments</button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check d-none" viewBox="0 0 16 16" id="${"check" + index}">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path>
+                    </svg>
                 <form/>
                 <p id="${"message" + index}></p>
               </div>
@@ -76,7 +79,12 @@ function responseHandlerSaved() {
 var saveComment = function(event, recipeName, index){
     event.preventDefault();
     let xhr3 = new XMLHttpRequest()
-    xhr3.addEventListener("load", responseHandlerComment)
+    xhr3.addEventListener("load", function() {
+        document.getElementById("check" + index).classList.remove("d-none");
+        setTimeout(function() {
+            document.getElementById("check" + index).classList.add("d-none");
+        }, 3000);
+    })
     query=`recipeName=${recipeName}&comment=${document.getElementById("comment" + index).value}`
     url = "/saveComment";
     xhr3.responseType = "json";   
@@ -87,9 +95,6 @@ var saveComment = function(event, recipeName, index){
     xhr3.send(query)
 }
 
-function responseHandlerComment() {
-    alert("Comment saved");
-}
 var deleteRecipe = function(recipeName, index) {
     let xhr4 = new XMLHttpRequest();
     xhr4.addEventListener("load", function () {
@@ -132,9 +137,12 @@ function responseHandlerLinked() {
                     <label for="${"linkcomment"+ index}">Comments:</label>
                     <input type="text" class="form-control mb-3 overflow-auto" id=${"linkcomment"+ index} rows="3" value="${recipe.comment}"></input> 
                     <button type="submit" class="btn btn-outline-dark btn-sm" id=${"linkbutton"+index}>Save Comment</button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check d-none" viewBox="0 0 16 16" id="${"checkLinked" + index}">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path>
+                    </svg>
                 <form/>
                 <div class="d-flex justify-content-center">
-                    <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + savedCommentIndex}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                    <button onmousedown="event.preventDefault()" class="btn btn-outline-dark mt-3" id="${"link" + savedCommentIndex}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
                 
               </div>
@@ -155,7 +163,12 @@ function responseHandlerLinked() {
 var linkComment = function(event, recipeName, index){
     event.preventDefault();
     let xhr5 = new XMLHttpRequest()
-    xhr5.addEventListener("load", responseHandlerComment)
+    xhr5.addEventListener("load", function () {
+        document.getElementById("checkLinked" + index).classList.remove("d-none");
+        setTimeout(function() {
+            document.getElementById("checkLinked" + index).classList.add("d-none");
+        }, 3000);
+    })
     query=`recipeName=${recipeName}&comment=${document.getElementById("linkcomment" + index).value}`
     url = "/linkComment";
     xhr5.responseType = "json";   
