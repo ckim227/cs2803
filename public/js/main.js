@@ -56,7 +56,7 @@ function responseHandlerSaved() {
             console.log(document.getElementById("button"+index));
             console.log(document.getElementById("comment" + index).value)
             console.log(recipe.recipeName) 
-        
+            
             document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment("${recipe.recipeName}", "${document.getElementById("comment" + index).value}");` );
 
             index++;
@@ -68,7 +68,22 @@ function responseHandlerSaved() {
 }
 
 var saveComment = function(recipeName, comment){
-    alert(recipeName + "comment: " + comment);
+    console.log(recipeName + comment)
+    let xhr3 = new XMLHttpRequest()
+    xhr3.addEventListener("load", responseHandlerComment)
+    query=`recipeName=${recipeName}&comment=${comment}`
+    console.log(query)
+    url = "/saveComment";
+    xhr3.responseType = "json";   
+    xhr3.open("POST", url)
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    xhr3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhr3.send(query)
+}
+
+function responseHandlerComment() {
+
 }
 
 

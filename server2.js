@@ -227,6 +227,7 @@ app.post("/saveLinkedRecipe", function(req,res){
 
 app.post("/saveComment", function(req, res){
     insertComment = "insert into savedRecipes(comment) values(?) where user = ? and recipeName = ?"
+    console.log(req.body.recipeName)
     conn.query(insertComment, [req.body.comment, username, req.body.recipeName], function(err, rows){ 
         if (err){
             res.json({success: false, message: "Server error"})
