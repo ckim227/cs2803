@@ -52,15 +52,12 @@ function saveRandom(){
     let xhr2 = new XMLHttpRequest()
     xhr2.addEventListener("load", saveResponseHandler)
     query=`recipeName=${recipeName.innerText}&ingredients=${ingredients.innerText}&instructions=${instructions.innerText}&recipeImg=${pic.src}`
-    // when submitting a GET request, the query string is appended to URL
-    // but in a POST request, do not attach the query string to the url
-    // instead pass it as a parameter in xhr.send()
+
     url = "/saveRandom";
     xhr2.responseType = "json";   
     xhr2.open("POST", url)
     xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
+
     xhr2.send(query)
 }
 
@@ -76,5 +73,5 @@ function saveResponseHandler(){
     }
 }
 
-generateButton.addEventListener("click", getRandom); //change name of button
+generateButton.addEventListener("click", getRandom);
 addRecipeButton.addEventListener("click", saveRandom);

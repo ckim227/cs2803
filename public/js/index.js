@@ -16,15 +16,10 @@ function login(event){
     let xhr = new XMLHttpRequest()
     xhr.addEventListener("load", responseHandler)
     query=`username=${username.value}&password=${password.value}`
-    // when submitting a GET request, the query string is appended to URL
-    // but in a POST request, do not attach the query string to the url
-    // instead pass it as a parameter in xhr.send()
     url = `/attempt_login`
     xhr.responseType = "json";   
     xhr.open("POST", url)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
     xhr.send(query)
 }
 
@@ -66,25 +61,10 @@ function responseHandler(){
         }
     }
 }
-function usernameInput(event){
-    
-}
+
 function passwordInput(event) {
     invalidPassword.classList.add("d-none");
 }
-// function uiHandler(){
-//     let invalidUsername = document.getElementById("invalidUsername");
-//     if (this.response.success) {
-//         let validUsername = document.getElementById("validUsername");
-//         validUsername.innerText = this.response.message;
-//         validUsername.classList.remove("d-none");
-//         invalidUsername.classList.add("d-none");
-//     } else {
-//         invalidUsername.innerText = this.response.message;
-//         invalidUsername.classList.remove("d-none");
-//         validUsername.classList.add("d-none");
-//     }
-// }
+
 loginButton.addEventListener("click", login);
-username.addEventListener("input", usernameInput);
 password.addEventListener("input", passwordInput);

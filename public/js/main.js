@@ -13,8 +13,6 @@ function showRecipes() {
     url = "/getSaved";
     xhr.responseType = "json";   
     xhr.open("POST", url)
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
     xhr.send()
 
     let xhr2 = new XMLHttpRequest()
@@ -23,8 +21,6 @@ function showRecipes() {
     url = "/getLinked";
     xhr2.responseType = "json";   
     xhr2.open("POST", url)
-    // notice the query string is passed as a parameter in xhr.send()
-    // this is to prevent the data from being easily sniffed
     xhr2.send()
 }
 
@@ -73,7 +69,6 @@ function responseHandlerSaved() {
     } else {
         savedMessage.innerText = this.response.message;
     }
-    console.log(this.response)
 }
 
 var saveComment = function(event, recipeName, index){
@@ -157,7 +152,6 @@ function responseHandlerLinked() {
     } else {
         linkedMessage.innerText = this.response.message;
     }
-    console.log(this.response)
 }
 
 var linkComment = function(event, recipeName, index){
@@ -214,7 +208,6 @@ function showR2() {
 } 
 
 function popupHandler() {
-    console.log(document.cookie);
     if (document.cookie === "true") {
         document.getElementById("success").classList.remove("d-none");
         setTimeout(function() {
