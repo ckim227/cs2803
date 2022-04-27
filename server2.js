@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -154,7 +154,7 @@ app.post("/saveRandom", function(req,res) {
 
             today = yyyy+'-'+mm+'-'+dd;
             //savedRecipes takes in user, recipeName, recipeIngredients, recipeInstructions, accessDate, image, comment 
-            insertUser = "insert into savedRecipes values(?, ?, ?, ?, ?, ?, null)"
+            insertUser = "insert into savedRecipes values(?, ?, ?, ?, ?, ?, '')"
             //currently comment set to null
 
             conn.query(insertUser, [username, req.body.recipeName, req.body.ingredients, req.body.instructions, today, req.body.recipeImg], function(err, rows){ 
@@ -211,7 +211,7 @@ app.post("/saveLinkedRecipe", function(req,res){
 
             today = yyyy+'-'+mm+'-'+dd;
             //linked recipes take user, recipe name, link, date, and a comment, for now comment = null
-            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, null)"
+            insertUser = "insert into linkedrecipes values(?, ?, ?, ?, '')"
             conn.query(insertUser, [username, req.body.recipeName, req.body.link, today], function(err, rows){ //req.body.recipeName does not exist yet
                 if (err){
                     res.json({success: false, message: "Server error"})
@@ -226,8 +226,7 @@ app.post("/saveLinkedRecipe", function(req,res){
 }) 
 
 app.post("/saveComment", function(req, res){
-    insertComment = "insert into savedRecipes(comment) values(?) where user = ? and recipeName = ?"
-    console.log(req.body.recipeName)
+    insertComment = "update savedRecipes set comment = ? where user = ? and recipeName = ?"
     conn.query(insertComment, [req.body.comment, username, req.body.recipeName], function(err, rows){ 
         if (err){
             res.json({success: false, message: "Server error"})
@@ -238,6 +237,21 @@ app.post("/saveComment", function(req, res){
         }
     })
 }) 
+
+app.post("/linkComment", function(req, res){
+    updateLinkComment = "update linkedRecipes set comment = ? where user = ? and recipeName = ?"
+    conn.query(updateLinkComment, [req.body.comment, username, req.body.recipeName], function(err, rows){ 
+        if (err){
+            res.json({success: false, message: "Server error"})
+            console.log("insert err:" + err);
+        }
+        else{
+            res.json({success: true, message: "Comment successfully saved!"})
+        }
+    })
+}) 
+
+
 app.post("/deleteRecipe", function(req, res){
     deleteRecipe = "delete from savedRecipes where user = ? and recipeName = ?"
     conn.query(deleteRecipe, [username, req.body.recipeName], function(err, rows){ 
