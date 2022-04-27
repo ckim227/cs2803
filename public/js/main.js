@@ -56,8 +56,9 @@ function responseHandlerSaved() {
             console.log(document.getElementById("button"+index));
             console.log(document.getElementById("comment" + index).value)
             console.log(recipe.recipeName) 
-            let button = document.getElementById("button"+index);
-            button.addEventListener("click", saveComment)
+        
+            document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment("${recipe.recipeName}", "${document.getElementById("comment" + index).value}");` );
+
             index++;
     });
     } else {
@@ -66,10 +67,10 @@ function responseHandlerSaved() {
     console.log(this.response)
 }
 
-function saveComment() {
-    console.log("hi");
-    // console.log("it works: " + recipeName);
+var saveComment = function(recipeName, comment){
+    alert(recipeName + "comment: " + comment);
 }
+
 
 function responseHandlerLinked() {
     if (this.response.message === "loaded") {
