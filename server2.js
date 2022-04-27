@@ -14,8 +14,8 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "Ca.th2lo",
-    password: "monaco14",
+    password: "Ca.th2lo",
+    //password: "monaco14",
     database: "CS2803"
 })
 
@@ -226,8 +226,7 @@ app.post("/saveLinkedRecipe", function(req,res){
 }) 
 
 app.post("/saveComment", function(req, res){
-    insertComment = "insert into savedRecipes(comment) values(?) where user = ? and recipeName = ?"
-    console.log(req.body.recipeName)
+    insertComment = "update savedRecipes set comment = ? where user = ? and recipeName = ?"
     conn.query(insertComment, [req.body.comment, username, req.body.recipeName], function(err, rows){ 
         if (err){
             res.json({success: false, message: "Server error"})
