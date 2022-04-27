@@ -33,13 +33,13 @@ function responseHandlerSaved() {
     if (this.response.message === "loaded") {
         let index = 1
         this.response.rows.forEach(recipe => {
-            let innerHTML = `<div class="card mb-2">
+            let innerHTML = `<div class="card mb-2" id="${"card" + index}">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
                     <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
                         ${recipe.recipeName}
                     </button>
-                    <button type="button" class="close position-absolute" aria-label="Close" style="right: 10px; top: 18px">
+                    <button type="button" class="close position-absolute" aria-label="Close" style="right: 10px; top: 18px" id="${"delete" + index}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </h5
@@ -61,7 +61,7 @@ function responseHandlerSaved() {
             console.log(recipe.recipeName) 
             
             document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment("${recipe.recipeName}", "${document.getElementById("comment" + index).value}");` );
-
+            document.getElementById("delete"+index).setAttribute("onclick", `javascript: deleteRecipe("${recipe.recipeName}", "${index}");`);
             index++;
     });
     } else {
@@ -71,7 +71,7 @@ function responseHandlerSaved() {
 }
 
 var saveComment = function(recipeName, comment){
-    console.log(recipeName + comment)
+    console.log('recipeName + comment')
     let xhr3 = new XMLHttpRequest()
     xhr3.addEventListener("load", responseHandlerComment)
     query=`recipeName=${recipeName}&comment=${comment}`
@@ -88,6 +88,21 @@ var saveComment = function(recipeName, comment){
 function responseHandlerComment() {
 
 }
+let cardElement;
+var deleteRecipe = function(recipeName, index) {
+    let xhr4 = new XMLHttpRequest();
+    xhr4.addEventListener("load", function () {
+        document.getElementById("card"+index).remove();
+    });
+    query=`recipeName=${recipeName}`;
+    url = "/deleteRecipe";
+    xhr4.responseType = "json";   
+    xhr4.open("POST", url)
+    xhr4.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhr4.send(query)
+}
+
+
 let savedCommentIndex = 1
 function responseHandlerLinked() {
     if (this.response.message === "loaded") {

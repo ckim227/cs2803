@@ -238,6 +238,19 @@ app.post("/saveComment", function(req, res){
         }
     })
 }) 
+app.post("/deleteRecipe", function(req, res){
+    console.log("Deleting recipe");
+    deleteRecipe = "delete from savedRecipes where user = ? and recipeName = ?"
+    conn.query(deleteRecipe, [username, req.body.recipeName], function(err, rows){ 
+        if (err){
+            res.json({success: false, message: "Server error"})
+            console.log("insert err:" + err);
+        }
+        else{
+            res.json({success: true, message: "Recipe successfully deleted!"})
+        }
+    })
+}) 
 
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
