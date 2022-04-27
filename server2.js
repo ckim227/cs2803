@@ -32,10 +32,13 @@ const app = express();
 username="ckim"
 password="12345"
 
-
+// Serve static files from the public dir
+// if you do not include this, then navigation to the localhost will not show anything
 app.use(express.static(path.join(__dirname, 'public'))); // will use the index.html file
 
-
+// the following is a route
+// serve home page
+// note that our callback function is anonymous here
 app.get("/registration", function(req, res){
     if (authenticated) {
         authenticated = false;
@@ -44,6 +47,9 @@ app.get("/registration", function(req, res){
 })
 
 
+// recall that the login information was passed as a parameter in xhr.send() as a POST request
+// the middleware function express.urlencoded must be used for POST requests
+// the data will be in the req.body object
 app.use(express.urlencoded({extended:false}));
 
 app.post("/register", function(req, res){
@@ -76,6 +82,37 @@ app.post("/register", function(req, res){
         }
     });
 })
+
+// app.post("/registerusername", function(req, res){
+//     // we check to see if username is available
+//     usernameQuery = "Select username from registeredUsers where username = ?"
+//     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
+//         if(err){
+//             res.json({success: false, message: "Server Error"})
+//         }
+//         else if (rows.length > 0){
+//             res.json({success: false, message: "Username already taken! Please try another username"})
+//         }
+//         else {
+//             res.json({success: true, message: "Valid username!"})
+//         }
+//     });
+// })
+// app.post("/username", function(req, res){
+//     // we check to see if username is available
+//     usernameQuery = "Select username from registeredUsers where username = ?"
+//     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
+//         if(err){
+//             res.json({success: false, message: "Server Error"})
+//         }
+//         else if (rows.length > 0){
+//             res.json({success: true, message: "Username exists!"})
+//         }
+//         else {
+//             res.json({success: false, message: "Username does not exist!"})
+//         }
+//     });
+// })
 
 // post to route "attempt login"
 app.post("/attempt_login", function(req, res){

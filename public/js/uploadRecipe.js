@@ -26,7 +26,11 @@ function saveLink(event){
     } if (recipeLink.value.length == 0) {
         message.classList.remove("invisible");
         message.innerText = "Please enter a recipe link!"
-    } else {
+    } else if (recipeName.value.length == 0) {
+        message.classList.remove("invisible");
+        message.innerText = "Please enter a valid recipe link and a recipe name!"
+    }
+    else{
         message.classList.remove("invisible");
         message.innerText = "Please enter a valid link!"
     }
