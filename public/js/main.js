@@ -63,7 +63,6 @@ function responseHandlerSaved() {
           </div>`
             accordion1.innerHTML += innerHTML;
             
-            let commentInput = document.getElementById("comment" + index)
             document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment(event, "${recipe.recipeName}", "${index}");` );
             document.getElementById("delete"+index).setAttribute("onclick", `javascript: deleteRecipe("${recipe.recipeName}", "${index}");`);
             index++;
@@ -129,9 +128,11 @@ function responseHandlerLinked() {
                 <div class="d-flex justify-content-center mb-2">
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
-                <label for="exampleFormControlTextarea1">Comments:</label>
-                <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
-                <button class="btn btn-outline-dark btn-sm">Save Comments</button>
+                <form method="POST" action ="/saveComment">
+                    <label for="${"linkcomment"+ index}">Comments:</label>
+                    <input type="text" class="form-control mb-3 overflow-auto" id=${"linkcomment"+ index} rows="3" value="${recipe.comment}"></input> 
+                    <button type="submit" class="btn btn-outline-dark btn-sm" id=${"linkbutton"+index}>Save Comment</button>
+                <form/>
                 <div class="d-flex justify-content-center">
                     <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + savedCommentIndex}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
@@ -140,13 +141,29 @@ function responseHandlerLinked() {
             </div>
           </div>`
             accordion2.innerHTML += innerHTML;
+            document.getElementById( "linkbutton"+index ).setAttribute( "onclick", `javascript: linkComment(event, "${recipe.recipeName}", "${index}");` );
             document.getElementById("deleteLinked"+index).setAttribute("onclick", `javascript: deleteLinkedRecipe("${recipe.recipeName}", "${index}");`);
+            index++;
             savedCommentIndex++;
         });
     } else {
         linkedMessage.innerText = this.response.message;
     }
     console.log(this.response)
+}
+
+var linkComment = function(event, recipeName, index){
+    event.preventDefault();
+    let xhr5 = new XMLHttpRequest()
+    xhr5.addEventListener("load", responseHandlerComment)
+    query=`recipeName=${recipeName}&comment=${document.getElementById("linkcomment" + index).value}`
+    url = "/linkComment";
+    xhr5.responseType = "json";   
+    xhr5.open("POST", url)
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    xhr5.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhr5.send(query)
 }
 
 var deleteLinkedRecipe = function(recipeName, index) {
