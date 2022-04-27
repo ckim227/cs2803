@@ -39,6 +39,9 @@ function responseHandlerSaved() {
                     <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse" + index}" aria-expanded="true" aria-controls="${"collapse" + index}">
                         ${recipe.recipeName}
                     </button>
+                    <button type="button" class="close position-absolute" aria-label="Close" style="right: 10px; top: 18px">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </h5
             </div>
             <div id="${"collapse" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion1">
@@ -85,11 +88,9 @@ var saveComment = function(recipeName, comment){
 function responseHandlerComment() {
 
 }
-
-
+let savedCommentIndex = 1
 function responseHandlerLinked() {
     if (this.response.message === "loaded") {
-        let index = 1
         this.response.rows.forEach(recipe => {
             let innerHTML = `<div class="card mb-2">
             <div class="card-header" id="${"heading" + index}">
@@ -99,7 +100,7 @@ function responseHandlerLinked() {
                     </button>
                 </h5
             </div>
-            <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#accordion2">
+            <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + savedCommentIndex}" data-parent="#accordion2">
               <div class="card-body">
                 <div class="d-flex justify-content-center mb-2">
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
@@ -108,14 +109,14 @@ function responseHandlerLinked() {
                 <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"></textarea> 
                 <button class="btn btn-outline-dark btn-sm">Save Comments</button>
                 <div class="d-flex justify-content-center">
-                    <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + index}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
+                    <button onmousedown="event.preventDefault()" class="btn btn-outline-dark" id="${"link" + savedCommentIndex}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
                 
               </div>
             </div>
           </div>`
             accordion2.innerHTML += innerHTML;
-            index++;
+            savedCommentIndex++;
         });
     } else {
         linkedMessage.innerText = this.response.message;
@@ -161,9 +162,19 @@ function bringToRandom() {
 function bringToLinked() {
     document.location = "/uploadRecipe";
 }
+
+function addEventHandlers() {
+    for (let i = 1; i <= savedCommentIndex; i++) {
+        document.getElementById("button" + i).addEventListener("click", function () {
+            document.getElementById("comment" + i)
+        })
+    }
+}
 window.addEventListener("load", popupHandler);
 window.addEventListener("load", showRecipes);
 srText.addEventListener("click", showR1);
 lrText.addEventListener("click", showR2);
 savedMessage.addEventListener("click", bringToRandom);
 linkedMessage.addEventListener("click", bringToLinked);
+
+
