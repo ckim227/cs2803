@@ -7,7 +7,7 @@ function saveLink(event){
     event.preventDefault()
     var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
-    if (recipeLink.matches(regex)) {
+    if (recipeLink.value.match(regex)) {
         if (recipeName.value.length > 0) {
             let xhr = new XMLHttpRequest()
             xhr.addEventListener("load", responseHandler)
