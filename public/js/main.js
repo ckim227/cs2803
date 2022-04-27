@@ -49,18 +49,17 @@ function responseHandlerSaved() {
                 <img src = ${recipe.image} width ="30%" class="mx-auto d-block rounded mb-3">
                 <p>${recipe.recipeIngredients}</p>
                 <p>${recipe.recipeInstructions}</p>
-                <label for="${"comment"+ index}">Comments:</label>
-                <textarea class="form-control mb-3 overflow-auto" id="${"comment"+ index}" rows="3" value="${recipe.comment}"></textarea> 
-                <button class="btn btn-outline-dark btn-sm" id=${"button"+index}>Save Comments</button>
+                <form method="POST" action ="/saveComment">
+                    <label for="${"comment"+ index}">Comments:</label>
+                    <input type="text" class="form-control mb-3 overflow-auto" id=${"comment"+ index} rows="3" value="${recipe.comment}"></input> 
+                    <button type="submit" class="btn btn-outline-dark btn-sm" id=${"button"+index}>Save Comments</button>
+                <form/>
               </div>
             </div>
           </div>`
             accordion1.innerHTML += innerHTML;
-            console.log(document.getElementById("button"+index));
-            console.log(document.getElementById("comment" + index).value)
-            console.log(recipe.recipeName) 
-            
-            document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment("${recipe.recipeName}", "${document.getElementById("comment" + index).value}");` );
+            console.log(document.getElementById("comment" + index))
+            document.getElementById( "button"+index ).setAttribute( "onclick", `javascript: saveComment(event, "${recipe.recipeName}", "${document.getElementById("comment" + index)}");` );
 
             index++;
     });
@@ -70,11 +69,12 @@ function responseHandlerSaved() {
     console.log(this.response)
 }
 
-var saveComment = function(recipeName, comment){
-    console.log(recipeName + comment)
+var saveComment = function(event, recipeName, comment){
+    event.preventDefault();
+    console.log(comment)
     let xhr3 = new XMLHttpRequest()
     xhr3.addEventListener("load", responseHandlerComment)
-    query=`recipeName=${recipeName}&comment=${comment}`
+    query=`recipeName=${recipeName}&comment=${comment.value}`
     console.log(query)
     url = "/saveComment";
     xhr3.responseType = "json";   
@@ -90,6 +90,7 @@ function responseHandlerComment() {
 }
 let savedCommentIndex = 1
 function responseHandlerLinked() {
+    let index = 1
     if (this.response.message === "loaded") {
         this.response.rows.forEach(recipe => {
             let innerHTML = `<div class="card mb-2">
