@@ -15,9 +15,9 @@ const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
     // password: "Ca.th2lo",
-    password: "monaco14",
+    // password: "monaco14",
     // password: //ENTER PASSWORD HERE
-    database: "CS2803"
+    // database: "CS2803"
 })
 
 conn.connect(function(err){
