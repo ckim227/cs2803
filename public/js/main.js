@@ -55,7 +55,7 @@ function responseHandlerSaved() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check d-none" viewBox="0 0 16 16" id="${"check" + index}">
                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path>
                     </svg>
-                <form/>
+                </form>
                 <p id="${"message" + index}></p>
               </div>
             </div>
@@ -128,14 +128,14 @@ function responseHandlerLinked() {
                 <div class="d-flex justify-content-center mb-2">
                     <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
                 </div>
-                <form method="POST" action ="/saveComment">
+                <form method="POST" action ="/linkComment">
                     <label for="${"linkcomment"+ index}">Comments:</label>
                     <input type="text" class="form-control mb-3 overflow-auto" id=${"linkcomment"+ index} rows="3" value="${recipe.comment}"></input> 
                     <button type="submit" class="btn btn-outline-dark btn-sm" id=${"linkbutton"+index}>Save Comment</button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check d-none" viewBox="0 0 16 16" id="${"checkLinked" + index}">
                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path>
                     </svg>
-                <form/>
+                </form>
                 <div class="d-flex justify-content-center">
                     <button onmousedown="event.preventDefault()" class="btn btn-outline-dark mt-3" id="${"link" + savedCommentIndex}" onclick="window.open('${recipe.link}','_blank')">Go to ${recipe.recipeName}</button>
                 </div
