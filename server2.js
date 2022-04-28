@@ -14,8 +14,7 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Ca.th2lo",
-    //password: "monaco14",
+    password: //ENTER PASSWORD HERE
     database: "CS2803"
 })
 
@@ -83,36 +82,6 @@ app.post("/register", function(req, res){
     });
 })
 
-// app.post("/registerusername", function(req, res){
-//     // we check to see if username is available
-//     usernameQuery = "Select username from registeredUsers where username = ?"
-//     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
-//         if(err){
-//             res.json({success: false, message: "Server Error"})
-//         }
-//         else if (rows.length > 0){
-//             res.json({success: false, message: "Username already taken! Please try another username"})
-//         }
-//         else {
-//             res.json({success: true, message: "Valid username!"})
-//         }
-//     });
-// })
-// app.post("/username", function(req, res){
-//     // we check to see if username is available
-//     usernameQuery = "Select username from registeredUsers where username = ?"
-//     conn.query(usernameQuery, [req.body.username], function(err, rows){ 
-//         if(err){
-//             res.json({success: false, message: "Server Error"})
-//         }
-//         else if (rows.length > 0){
-//             res.json({success: true, message: "Username exists!"})
-//         }
-//         else {
-//             res.json({success: false, message: "Username does not exist!"})
-//         }
-//     });
-// })
 
 // post to route "attempt login"
 app.post("/attempt_login", function(req, res){
