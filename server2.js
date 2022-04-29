@@ -267,7 +267,7 @@ app.get("/randomRecipe", function(req,res) {
 app.get("/uploadRecipe", function(req,res) {
     if(authenticated){
         res.sendFile(__dirname + "/public/html/" + "uploadRecipe.html")
-    }else{ƒ
+    }else{
         res.sendFile(__dirname + "/public/")
     }
 })
