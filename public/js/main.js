@@ -112,7 +112,7 @@ function responseHandlerLinked() {
             let innerHTML = `<div class="card mb-2" id="${"cardLinked" + index}">
             <div class="card-header" id="${"heading" + index}">
                 <h5 class="mb-0">
-                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}">
+                    <button onmousedown="event.preventDefault()" class="btn btn-default collapsed w-100 text-left" data-toggle="collapse" data-target="${"#collapse2" + index}" aria-expanded="true" aria-controls="${"collapse2" + index}" id=${"buttonCollapser" + index}>
                         <h5>${recipe.recipeName}</h5>
                     </button>
                     <button type="button" class="btn btn-outline-secondary position-absolute" style="right: 10px; top: 15px" id="${"deleteLinked" + index}">
@@ -126,7 +126,7 @@ function responseHandlerLinked() {
             <div id="${"collapse2" + index}" class="collapse" aria-labelledby="${"heading" + savedCommentIndex}" data-parent="#accordion2">
               <div class="card-body">
                 <div class="d-flex justify-content-center mb-2">
-                    <iframe class="w-100" src="${recipe.link}" title="${recipe.recipeName}" height="500"></iframe>
+                    <iframe class="w-100" src="" title="${recipe.recipeName}" height="500" id=${"iframe" + index}></iframe>
                 </div>
                 <form method="POST" action ="/linkComment">
                     <label for="${"linkcomment"+ index}">Comments:</label>
@@ -146,12 +146,17 @@ function responseHandlerLinked() {
             accordion2.innerHTML += innerHTML;
             document.getElementById( "linkbutton"+index ).setAttribute( "onclick", `javascript: linkComment(event, "${recipe.recipeName}", "${index}");` );
             document.getElementById("deleteLinked"+index).setAttribute("onclick", `javascript: deleteLinkedRecipe("${recipe.recipeName}", "${index}");`);
+            document.getElementById( "buttonCollapser" + index ).setAttribute( "onclick", `javascript: createiFrame(event, "${recipe.link}", "${index}");` );
             index++;
             savedCommentIndex++;
         });
     } else {
         linkedMessage.innerText = this.response.message;
     }
+}
+
+var createiFrame = function(event, recipeLink, index) {
+    document.getElementById("iframe" + index).src = recipeLink;
 }
 
 var linkComment = function(event, recipeName, index){
