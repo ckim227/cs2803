@@ -28,6 +28,9 @@ function responseHandler(){
         if (this.response.success){    
             document.cookie = "true";
             document.location = "/main";
+            message.innerText = this.response.message + " Loading your recipes..."
+            message.style.color = "green";
+            messageCont.classList.remove("d-none");
         } else {
             if (this.response.message == "Server error") {
                 message.innerText = this.response.message
